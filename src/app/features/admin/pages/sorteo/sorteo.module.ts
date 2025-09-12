@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { SorteoRoutingModule } from './sorteo-routing.module';
 import { SorteoComponent } from './sorteo.component';
@@ -12,6 +12,7 @@ import { SorteoComponent } from './sorteo.component';
     SorteoRoutingModule,
 
     SorteoComponent
-  ]
+  ],
+  providers: [DatePipe]
 })
 export class SorteoModule { }

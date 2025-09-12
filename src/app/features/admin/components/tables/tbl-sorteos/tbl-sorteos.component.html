@@ -1,0 +1,105 @@
+<div class="grid gap-5 lg:gap-7.5">
+    <div class="kt-card kt-card-grid min-w-full">
+        <div class="kt-card-header">
+            <h3 class="kt-card-title">Lista de sorteos</h3>
+            <button class="kt-btn kt-btn-outline" data-kt-tooltip="true"
+    data-kt-tooltip-placement="top">
+              <i class="ki-filled ki-exit-down"></i>
+              Exportar Excel
+
+              <span data-kt-tooltip-content="true" class="kt-tooltip">Exportar en excel</span
+    >
+            </button>
+        </div>
+        <div class="kt-card-table">
+            <div
+              id="tbl_sorteos"
+              class="kt-card-table"
+              data-kt-datatable-page-size="5"
+              data-kt-datatable-state-save="true"
+            >
+              <div class="kt-table-wrapper kt-scrollable">
+                <table class="kt-table" data-kt-datatable-table="true" id="tbl_sorteos">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="w-30" data-kt-datatable-column="label">
+                        <span class="kt-table-col"
+                          ><span class="kt-table-col-label">Nombre</span
+                          ><span class="kt-table-col-sort"></span
+                        ></span>
+                      </th>
+                      <th scope="col" class="w-20" data-kt-datatable-column="method">
+                        <span class="kt-table-col"
+                          ><span class="kt-table-col-label">Descripción</span
+                          ><span class="kt-table-col-sort"></span
+                        ></span>
+                      </th>
+                      <th scope="col" class="w-24" data-kt-datatable-column="status">
+                        <span class="kt-table-col"
+                          ><span class="kt-table-col-label">F. Sorteo</span
+                          ><span class="kt-table-col-sort"></span
+                        ></span>
+                      </th>
+                      <th
+                        scope="col"
+                        class="w-24"
+                        data-kt-datatable-column="lastSession"
+                      >
+                        <span class="kt-table-col"
+                          ><span class="kt-table-col-label">F. Registro</span
+                          ><span class="kt-table-col-sort"></span
+                        ></span>
+                      </th>
+                      <th scope="col" class="w-24" data-kt-datatable-column="ipAddress">
+                        <span class="kt-table-col"
+                          ><span class="kt-table-col-label">U. Registro</span
+                          ><span class="kt-table-col-sort"></span
+                        ></span>
+                      </th>
+                      <th scope="col" class="w-24" data-kt-datatable-column="ipAddress">
+                        <span class="kt-table-col"
+                          ><span class="kt-table-col-label">Precio Rifa</span
+                          ><span class="kt-table-col-sort"></span
+                        ></span>
+                      </th>
+                      <th scope="col" class="w-24" data-kt-datatable-column="ipAddress">
+                        <span class="kt-table-col"
+                          ><span class="kt-table-col-label">Slug</span
+                          ><span class="kt-table-col-sort"></span
+                        ></span>
+                      </th>
+                      <th scope="col" class="w-24" data-kt-datatable-column="ipAddress">
+                        <span class="kt-table-col"
+                          ><span class="kt-table-col-label">Estado</span
+                          ><span class="kt-table-col-sort"></span
+                        ></span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+              <!--begin:pagination-->
+              <div class="kt-datatable-toolbar">
+                <div class="kt-datatable-length">
+                  Show<select
+                    class="kt-select kt-select-sm w-16"
+                    name="perpage"
+                    data-kt-datatable-size="true"
+                  ></select
+                  >per page
+                </div>
+                <div class="kt-datatable-info">
+                  <span data-kt-datatable-info="true"></span>
+                  <div
+                    class="kt-datatable-pagination"
+                    data-kt-datatable-pagination="true"
+                  ></div>
+                </div>
+              </div>
+              <!--end:pagination-->
+            </div>
+        </div>
+    </div>
+</div>
+

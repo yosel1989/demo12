@@ -23,6 +23,8 @@ import { IndexComponent as Demo10IndexComponent } from './pages/demo10/index/ind
 
 
 import { AuthComponent } from './features/auth/pages/auth/auth.component';
+import { AuthGuard } from './core/guards/auth.guard';
+import { AuthRedirectGuard } from './core/guards/auth-redirect.guard';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'admin' },
@@ -32,6 +34,7 @@ export const routes: Routes = [
   {
     path: 'auth',
     component: AuthComponent,
+    canActivate: [AuthRedirectGuard],
   },
 
   // admin

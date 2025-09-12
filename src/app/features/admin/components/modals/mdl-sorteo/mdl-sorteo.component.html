@@ -2,9 +2,13 @@
     <div class="kt-card kt-card-grid min-w-full">
         <div class="kt-card-header">
             <h3 class="kt-card-title">Lista de sorteos</h3>
-            <button class="kt-btn kt-btn-outline">
-            <i class="ki-filled ki-exit-down"></i>
-            Download PDF
+            <button class="kt-btn kt-btn-outline" data-kt-tooltip="true"
+    data-kt-tooltip-placement="top">
+              <i class="ki-filled ki-exit-down"></i>
+              Exportar Excel
+
+              <span data-kt-tooltip-content="true" class="kt-tooltip">Exportar en excel</span
+    >
             </button>
         </div>
         <div class="kt-card-table">
@@ -20,19 +24,19 @@
                     <tr>
                       <th scope="col" class="w-30" data-kt-datatable-column="label">
                         <span class="kt-table-col"
-                          ><span class="kt-table-col-label">Label</span
+                          ><span class="kt-table-col-label">Nombre</span
                           ><span class="kt-table-col-sort"></span
                         ></span>
                       </th>
                       <th scope="col" class="w-20" data-kt-datatable-column="method">
                         <span class="kt-table-col"
-                          ><span class="kt-table-col-label">Method</span
+                          ><span class="kt-table-col-label">Descripción</span
                           ><span class="kt-table-col-sort"></span
                         ></span>
                       </th>
                       <th scope="col" class="w-24" data-kt-datatable-column="status">
                         <span class="kt-table-col"
-                          ><span class="kt-table-col-label">Status</span
+                          ><span class="kt-table-col-label">F. Sorteo</span
                           ><span class="kt-table-col-sort"></span
                         ></span>
                       </th>
@@ -42,13 +46,31 @@
                         data-kt-datatable-column="lastSession"
                       >
                         <span class="kt-table-col"
-                          ><span class="kt-table-col-label">Last Session</span
+                          ><span class="kt-table-col-label">F. Registro</span
                           ><span class="kt-table-col-sort"></span
                         ></span>
                       </th>
                       <th scope="col" class="w-24" data-kt-datatable-column="ipAddress">
                         <span class="kt-table-col"
-                          ><span class="kt-table-col-label">IP Address</span
+                          ><span class="kt-table-col-label">U. Registro</span
+                          ><span class="kt-table-col-sort"></span
+                        ></span>
+                      </th>
+                      <th scope="col" class="w-24" data-kt-datatable-column="ipAddress">
+                        <span class="kt-table-col"
+                          ><span class="kt-table-col-label">Precio Rifa</span
+                          ><span class="kt-table-col-sort"></span
+                        ></span>
+                      </th>
+                      <th scope="col" class="w-24" data-kt-datatable-column="ipAddress">
+                        <span class="kt-table-col"
+                          ><span class="kt-table-col-label">Slug</span
+                          ><span class="kt-table-col-sort"></span
+                        ></span>
+                      </th>
+                      <th scope="col" class="w-24" data-kt-datatable-column="ipAddress">
+                        <span class="kt-table-col"
+                          ><span class="kt-table-col-label">Estado</span
                           ><span class="kt-table-col-sort"></span
                         ></span>
                       </th>

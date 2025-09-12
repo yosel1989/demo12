@@ -6,7 +6,7 @@ import { tablerLoader2 } from '@ng-icons/tabler-icons';
 import { AuthApiService } from 'app/features/auth/services/auth-api.service';
 import { AuthRequest, User } from 'app/features/auth/services/auth.interface';
 import { AlertService } from 'app/shared/services/alert.service';
-import { AuthService } from 'app/core/services/auth.service';
+import { StorageService } from 'app/core/services/storage.service';
 
 @Component({
   selector: 'app-auth',
@@ -26,7 +26,7 @@ export class AuthComponent implements AfterViewInit, OnDestroy{
     private authApi: AuthApiService, 
     private fb: FormBuilder, 
     private alertService: AlertService,
-    private authService: AuthService,
+    private storageService: StorageService,
     private router: Router
   ) {
     this.frmAuth = this.fb.group({
@@ -44,14 +44,14 @@ export class AuthComponent implements AfterViewInit, OnDestroy{
   }
 
   // Getters
-  get f() {
+  get f(): any {
     return this.frmAuth.controls;
   }
 
   get formData(): AuthRequest {
     return { 
-      username: this.f['usuario'].value,
-      password: this.f['clave'].value 
+      username: this.f.usuario.value,
+      password: this.f.clave.value 
     };
   }
 
@@ -82,7 +82,7 @@ export class AuthComponent implements AfterViewInit, OnDestroy{
 
   // Handlers
   handlerOnSubmitSuccess(res: User): void {
-    this.authService.setToken(res.token);
+    this.storageService.setToken(res.token);
     this.alertService.showSwalAlert({
       icon: 'success',
       title: `<span class="font-bold">Bienvenid@ <br> ${res.firstName} ${res.lastName}</span>`,
