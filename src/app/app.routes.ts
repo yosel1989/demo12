@@ -25,7 +25,7 @@ import { IndexComponent as Demo10IndexComponent } from './pages/demo10/index/ind
 import { AuthComponent } from './features/auth/pages/auth/auth.component';
 
 export const routes: Routes = [
-  //{ path: '', pathMatch: 'full', redirectTo: 'auth' },
+  { path: '', pathMatch: 'full', redirectTo: 'admin' },
 
 
   // auth
@@ -38,6 +38,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () => import('./features/admin/layout/layout.module').then(m => m.LayoutModule),
+    canActivate: [AuthGuard],
   },
 
 /*
