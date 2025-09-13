@@ -1,20 +1,20 @@
 
 
 
-<span class="p-text-secondary block mb-8">Update your information.</span>
+<span class="p-text-secondary block mb-8">Registrar Nuevo Sorteo</span>
 
 <div class="flex flex-col gap-4">
    <div class="flex flex-col gap-1">
         <label class="kt-form-label font-normal text-mono">
         Nombre del Sorteo
         </label>
-        <input class="kt-input" placeholder="Ingrese su usuario" type="text"/>
+        <input pInputText type="text" pSize="small" placeholder="Small" />
     </div>
     <div class="flex flex-col gap-1">
         <label class="kt-form-label font-normal text-mono">
         Descripción
         </label>
-        <textarea class="kt-textarea" placeholder="Text input" rows="4"></textarea>
+        <textarea rows="5" cols="30" pTextarea></textarea>
     </div>
     <!--<div class="flex flex-col gap-1">
         <label class="kt-form-label font-normal text-mono">
@@ -62,7 +62,7 @@
             Número Inicial
             </label>
             <div class="flex">
-                <p-inputnumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1" size="small" [useGrouping]="false">
+                <p-inputnumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1" size="small" [useGrouping]="false" [min]="1">
                     <ng-template #incrementbuttonicon>
                         <span class="pi pi-plus"></span>
                     </ng-template>
@@ -77,7 +77,7 @@
             Número Final
             </label>
             <div class="flex">
-                <p-inputnumber [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1" size="small" [useGrouping]="false" class="w-full">
+                <p-inputnumber [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1" size="small" [useGrouping]="false" class="w-full" [min]="1">
                     <ng-template #incrementbuttonicon>
                         <span class="pi pi-plus"></span>
                     </ng-template>
