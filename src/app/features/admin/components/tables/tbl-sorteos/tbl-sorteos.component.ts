@@ -79,6 +79,31 @@ export class TblSorteosComponent implements OnInit, AfterViewInit {
 			},
 			estado: {
 				title: 'Estado',
+				render: function(data: string, type: any, row: any) {
+					let estadoColor = '';
+					switch (data) {
+						case 'pendiente':
+							estadoColor = 'kt-badge-warning';
+							break;
+						case 'aperturado':
+							estadoColor = 'kt-badge-success';
+							break;
+						case 'cerrado':
+							estadoColor = 'kt-badge-secondary';
+							break;
+						case 'sorteado':
+							estadoColor = 'kt-badge-primary';
+							break;
+						case 'cancelado':
+							estadoColor = 'kt-badge-destructive';
+							break;
+						default:
+							estadoColor = 'kt-badge-warning';
+							break;
+					}
+					return  `<span class="kt-badge kt-badge-outline ${estadoColor}">${data.toUpperCase()}</span>`
+				},
+				class: 'mi-clase-css'
 			},
 		},
 
@@ -86,6 +111,8 @@ export class TblSorteosComponent implements OnInit, AfterViewInit {
 		stateSave: true,
 	};
 	const datatable = new KTDataTable(datatableEl, options);
+
+	console.log(datatable);
 	
 	datatable.on('init', () => {
 		console.log('init event');

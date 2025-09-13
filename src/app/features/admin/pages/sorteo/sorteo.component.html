@@ -11,9 +11,15 @@
             </div>
         </div>
         <div class="flex items-center gap-2.5">
-            <a class="kt-btn kt-btn-outline" href="html/demo1/public-profile/profiles/default.html">
+            
+            <button class="kt-btn kt-btn-outline" (click)="show()">
                 Nuevo Registro
-            </a>
+            </button>
+
+            <p-toast />
+            <p-confirmpopup />
+            <p-button (onClick)="confirm1($event)" label="Save" [outlined]="true" size="small" />
+            <p-button (onClick)="confirm2($event)" label="Delete" severity="danger" [outlined]="true"  size="small"/>
         </div>
     </div>
 </div>
