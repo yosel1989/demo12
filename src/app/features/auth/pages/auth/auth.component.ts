@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, HostBinding, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, HostBinding, inject, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -7,15 +7,24 @@ import { AuthApiService } from 'app/features/auth/services/auth-api.service';
 import { AuthRequest, User } from 'app/features/auth/services/auth.interface';
 import { AlertService } from 'app/shared/services/alert.service';
 import { StorageService } from 'app/core/services/storage.service';
+import { PasswordModule } from 'primeng/password';
+import { InputTextModule } from 'primeng/inputtext';
+import { MessageModule } from 'primeng/message';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-auth',
-  imports: [NgIcon, FormsModule, ReactiveFormsModule],
+  imports: [NgIcon, FormsModule, ReactiveFormsModule, PasswordModule, InputTextModule, MessageModule, ToastModule],
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
-  viewProviders: [provideIcons({ tablerLoader2 })]
+  viewProviders: [provideIcons({ tablerLoader2 })],
+  providers: [ MessageService]
 })
 export class AuthComponent implements AfterViewInit, OnDestroy{
+
+  messageService = inject(MessageService);
+
   @HostBinding('class') claseHost = 'flex w-full';
 
   isSubmitted = false;
@@ -110,12 +119,14 @@ export class AuthComponent implements AfterViewInit, OnDestroy{
       mensaje = "Debe ingresar una contraseña";
     }
 
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Debe rellenar todos los campos requeridos.', life: 3000 });
+
     this.alertService.showToast({
       position: 'bottom-end',
       icon: "error",
       title: mensaje,
       showCloseButton: true,
-      timerProgressBar: true,
+      timerProgressBar: true
     });
   }
 

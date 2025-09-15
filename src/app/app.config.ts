@@ -10,6 +10,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
 
+import { es } from 'primelocale/es.json';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimationsAsync(),
@@ -22,9 +24,13 @@ export const appConfig: ApplicationConfig = {
     ),
 
     providePrimeNG({
+        translation: es,
         theme: {
-            preset: Aura
-        }
+            preset: Aura,
+            options: {
+                darkModeSelector: '.dark'
+            }
+        },
     })
   ]
 

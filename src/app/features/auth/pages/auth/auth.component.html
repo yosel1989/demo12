@@ -1,3 +1,4 @@
+<p-toast position="bottom-right"/>
 <div class="flex items-center justify-center grow bg-center bg-no-repeat page-bg">
    <div class="kt-card max-w-[370px] w-full">
     <form [formGroup]="frmAuth" (ngSubmit)="evtOnSubmit()" action="#" class="kt-card-content flex flex-col gap-5 p-10" id="sign_in_form" method="get" autocomplete="off">
@@ -15,31 +16,32 @@
       </div>
      </div>
      <div class="flex flex-col gap-1">
-      <label class="kt-form-label font-normal text-mono">
-       Usuario
-      </label>
-      <input class="kt-input" placeholder="Ingrese su usuario" type="text" formControlName="usuario" autocomplete="off" 
-       [attr.aria-invalid]="f['usuario'].invalid && isSubmitted"/>
+      <label class="kt-form-label font-normal text-mono">Usuario</label>
+      <input type="text" pInputText 
+      pSize="small" 
+      formControlName="usuario" 
+      autocomplete="off" 
+      [invalid]="f['usuario'].invalid && isSubmitted"
+      />
+      @if (f.usuario.invalid && isSubmitted) {
+          <p-message severity="error" size="small" variant="simple">El usuario es requerido.</p-message>
+      }
      </div>
      <div class="flex flex-col gap-1">
-      <div class="flex items-center justify-between gap-1">
-       <label class="kt-form-label font-normal text-mono">
-        Contraseña
-       </label>
+      <label class="kt-form-label font-normal text-mono">
+      Contraseña
+      </label>
+      <div class="card">
+        <p-password formControlName="clave" [toggleMask]="true" 
+        [feedback]="false" 
+        size="small" 
+        class="flex! flex-col basis-full" 
+        [invalid]="f['clave'].invalid && isSubmitted"
+        />
       </div>
-      <div class="kt-input" data-kt-toggle-password="true" [attr.aria-invalid]="f['clave'].invalid && isSubmitted">
-       <input name="user_password" placeholder="Ingrese su contraseña" type="password" formControlName="clave" autocomplete="off"/>
-       <button class="kt-btn kt-btn-sm kt-btn-ghost kt-btn-icon bg-transparent! -me-1.5" data-kt-toggle-password-trigger="true" type="button">
-        <span class="kt-toggle-password-active:hidden">
-         <i class="ki-filled ki-eye text-muted-foreground">
-         </i>
-        </span>
-        <span class="hidden kt-toggle-password-active:block">
-         <i class="ki-filled ki-eye-slash text-muted-foreground">
-         </i>
-        </span>
-       </button>
-      </div>
+      @if (f.clave.invalid && isSubmitted) {
+          <p-message severity="error" size="small" variant="simple">La contraseña es requerida.</p-message>
+      }
      </div>
      <button type="submit" [disabled]="loadingSubmit" class="kt-btn kt-btn-primary flex justify-center grow">
       @if (loadingSubmit){<ng-icon class="animate-spin" size="18px" weight="bold"  name="tablerLoader2" />}

@@ -3,23 +3,54 @@ import { StorageService } from 'app/core/services/storage.service';
 import { MetronicInitService } from 'app/core/services/metronic-init.service';
 import { DatePipe } from '@angular/common';
 
+import { MenuItem } from 'primeng/api';
+import { Toolbar } from 'primeng/toolbar';
+import { ButtonModule } from 'primeng/button';
+import { SplitButton } from 'primeng/splitbutton';
+import { InputTextModule } from 'primeng/inputtext';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
+import { TooltipModule } from 'primeng/tooltip';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MdlSorteoComponent } from '../../modals/mdl-sorteo/mdl-sorteo.component';
+
 declare var KTDataTable: any;
 
 @Component({
   selector: 'app-tbl-sorteos',
-  imports: [],
+  imports: [Toolbar, ButtonModule, SplitButton, InputTextModule, IconField, InputIcon, TooltipModule],
   templateUrl: './tbl-sorteos.component.html',
   styleUrl: './tbl-sorteos.component.scss'
 })
 export class TblSorteosComponent implements OnInit, AfterViewInit {
 
+  ldData: boolean = false;
+  items: MenuItem[] | undefined;
+
+  datatable: any | undefined;
+
+  ref: DynamicDialogRef | undefined;
+  mdlSoteoComponent: MdlSorteoComponent | undefined;
+
   constructor(
-	private metronicInitService: MetronicInitService,
+	//private metronicInitService: MetronicInitService,
 	private storageService: StorageService,
-	private datePipe: DatePipe
+	private datePipe: DatePipe,
+	public dialogService: DialogService
 	) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+	this.items = [
+		{
+			label: 'Update',
+			icon: 'pi pi-refresh'
+		},
+		{
+			label: 'Delete',
+			icon: 'pi pi-times'
+		}
+	];
+  }
 
   ngAfterViewInit(): void {
 
@@ -110,16 +141,41 @@ export class TblSorteosComponent implements OnInit, AfterViewInit {
 		pageSize: 5,
 		stateSave: true,
 	};
-	const datatable = new KTDataTable(datatableEl, options);
-
-	console.log(datatable);
+	this.datatable = new KTDataTable(datatableEl, options);
 	
-	datatable.on('init', () => {
+	this.datatable.on('init', () => {
 		console.log('init event');
 	});
 	
-	datatable.on('draw', () => {
+	this.datatable.on('draw', () => {
 		console.log('draw event');
+	});
+  }
+
+  // Events
+  evtOnReload(): void{
+	this.datatable?.reload();
+  }
+
+  evtOnCreate(): void{
+	this.ref = this.dialogService.open(MdlSorteoComponent,  {
+		width: '1200px',
+		closable: true,
+		modal: true,
+		draggable: true,
+		position: 'top',
+		header: 'Registrar Sorteo',
+		styleClass: 'max-h-none! slide-down-dialog',
+		maskStyleClass: 'overflow-y-auto py-4',
+		appendTo: 'body'
+	});
+
+	this.ref.onChildComponentLoaded.subscribe((res: MdlSorteoComponent) => {
+		this.mdlSoteoComponent = res;
+		this.mdlSoteoComponent?.OnCreated.subscribe(a => {
+			this.ref?.close();
+			console.log('Registro exitoso');
+		});
 	});
   }
 }

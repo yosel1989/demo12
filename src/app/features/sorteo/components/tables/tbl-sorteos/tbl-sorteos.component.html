@@ -10,6 +10,40 @@
     >
             </button>
         </div>
+        <div class="p-4">
+          <div class="card">
+            <p-toolbar>
+                <ng-template #start>
+                    <p-button icon="pi pi-plus" class="mr-2" size="small" 
+                    text 
+                    severity="secondary" 
+                    pTooltip="Nuevo sorteo" 
+                    tooltipPosition="top" 
+                    placeholder="Top"
+                    (click)="evtOnCreate()"
+                    />
+                    
+                    <p-button icon="pi pi-refresh" class="mr-2" size="small" text 
+                    severity="secondary" 
+                    pTooltip="Actualizar" 
+                    tooltipPosition="top" 
+                    placeholder="Top"
+                    (click)="evtOnReload()"
+                    />
+                    <p-button icon="pi pi-upload" text severity="secondary" size="small" />
+                </ng-template>
+                <ng-template #center>
+                    <p-iconfield iconPosition="left">
+                        <p-inputicon class="pi pi-search" />
+                        <input type="text" pInputText pSize="small" placeholder="Search" />
+                    </p-iconfield>
+                </ng-template>
+                <ng-template #end>
+                    <p-splitbutton label="Save" [model]="items" size="small" />
+                </ng-template>
+            </p-toolbar>
+        </div>
+        </div>
         <div class="kt-card-table">
             <div
               id="tbl_sorteos"
