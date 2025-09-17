@@ -2,27 +2,27 @@
     <div class="kt-card kt-card-grid min-w-full">
         <div class="kt-card-header">
             <h3 class="kt-card-title">Lista de sorteos</h3>
-            <button class="kt-btn kt-btn-outline" data-kt-tooltip="true" data-kt-tooltip-placement="top">
-              <i class="ki-filled ki-exit-down"></i>
-              Exportar Excel
-
-              <span data-kt-tooltip-content="true" class="kt-tooltip">Exportar en excel</span
-    >
-            </button>
         </div>
-        <div class="p-4">
-          <div class="card">
-            <p-toolbar>
+
+        <div class="card border-0!">
+            <p-toolbar class="rounded-none! border-none!">
                 <ng-template #start>
                     <p-button icon="pi pi-plus" class="mr-2" size="small" 
-                    text 
-                    severity="secondary" 
-                    pTooltip="Nuevo sorteo" 
-                    tooltipPosition="top" 
+                    text
+                    severity="secondary"
+                    pTooltip="Nuevo sorteo"
+                    tooltipPosition="top"
                     placeholder="Top"
                     (click)="evtOnCreate()"
                     />
-                    
+                    @if(selected){<p-button icon="pi pi-pencil" class="mr-2" size="small" 
+                    text 
+                    severity="warn" 
+                    pTooltip="Editar sorteo" 
+                    tooltipPosition="top" 
+                    placeholder="Top"
+                    (click)="evtOnEdit()"
+                    />}
                     <p-button icon="pi pi-refresh" class="mr-2" size="small" text 
                     severity="secondary" 
                     pTooltip="Actualizar" 
@@ -30,107 +30,155 @@
                     placeholder="Top"
                     (click)="evtOnReload()"
                     />
-                    <p-button icon="pi pi-upload" text severity="secondary" size="small" />
-                </ng-template>
-                <ng-template #center>
-                    <p-iconfield iconPosition="left">
-                        <p-inputicon class="pi pi-search" />
-                        <input type="text" pInputText pSize="small" placeholder="Search" />
-                    </p-iconfield>
+                    <p-button icon="pi pi-cloud-download" text size="small"
+                    severity="secondary" 
+                    pTooltip="Exportar Excel" 
+                    tooltipPosition="top" 
+                    placeholder="Top" />
                 </ng-template>
                 <ng-template #end>
-                    <p-splitbutton label="Save" [model]="items" size="small" />
+                    <p-iconfield iconPosition="left">
+                        <p-inputicon class="pi pi-search" />
+                        <input #inputFilter type="text" pInputText pSize="small" placeholder="Buscar ..." 
+                          (input)="evtOnFilter(inputFilter.value)"/>
+                    </p-iconfield>
                 </ng-template>
             </p-toolbar>
-        </div>
-        </div>
-        <div class="kt-card-table">
-            <div
-              id="tbl_sorteos"
-              class="kt-card-table"
-              data-kt-datatable-page-size="5"
-              data-kt-datatable-state-save="true"
-            >
-              <div class="kt-table-wrapper kt-scrollable">
-                <table class="kt-table text-nowrap" data-kt-datatable-table="true" id="tbl_sorteos">
-                  <thead>
-                    <tr>
-                      <th scope="col" class="w-30" data-kt-datatable-column="label">
-                        <span class="kt-table-col"
-                          ><span class="kt-table-col-label">Nombre</span
-                          ><span class="kt-table-col-sort"></span
-                        ></span>
-                      </th>
-                      <th scope="col" class="w-20" data-kt-datatable-column="method">
-                        <span class="kt-table-col"
-                          ><span class="kt-table-col-label">Descripción</span
-                          ><span class="kt-table-col-sort"></span
-                        ></span>
-                      </th>
-                      <th scope="col" class="w-24" data-kt-datatable-column="status">
-                        <span class="kt-table-col"
-                          ><span class="kt-table-col-label">F. Sorteo</span
-                          ><span class="kt-table-col-sort"></span
-                        ></span>
-                      </th>
-                      <th
-                        scope="col"
-                        class="w-24"
-                        data-kt-datatable-column="lastSession"
-                      >
-                        <span class="kt-table-col"
-                          ><span class="kt-table-col-label">F. Registro</span
-                          ><span class="kt-table-col-sort"></span
-                        ></span>
-                      </th>
-                      <th scope="col" class="w-24" data-kt-datatable-column="ipAddress">
-                        <span class="kt-table-col"
-                          ><span class="kt-table-col-label">U. Registro</span
-                          ><span class="kt-table-col-sort"></span
-                        ></span>
-                      </th>
-                      <th scope="col" class="w-24" data-kt-datatable-column="ipAddress">
-                        <span class="kt-table-col"
-                          ><span class="kt-table-col-label">Precio Rifa</span
-                          ><span class="kt-table-col-sort"></span
-                        ></span>
-                      </th>
-                      <th scope="col" class="w-24" data-kt-datatable-column="ipAddress">
-                        <span class="kt-table-col"
-                          ><span class="kt-table-col-label">Slug</span
-                          ><span class="kt-table-col-sort"></span
-                        ></span>
-                      </th>
-                      <th scope="col" class="w-24" data-kt-datatable-column="ipAddress">
-                        <span class="kt-table-col"
-                          ><span class="kt-table-col-label">Estado</span
-                          ><span class="kt-table-col-sort"></span
-                        ></span>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody></tbody>
-                </table>
-              </div>
-              <!--begin:pagination-->
-              <div class="kt-datatable-toolbar">
-                <div class="kt-datatable-length">
-                  Show<select
-                    class="kt-select kt-select-sm w-16"
-                    name="perpage"
-                    data-kt-datatable-size="true"
-                  ></select
-                  >per page
-                </div>
-                <div class="kt-datatable-info">
-                  <span data-kt-datatable-info="true"></span>
-                  <div
-                    class="kt-datatable-pagination"
-                    data-kt-datatable-pagination="true"
-                  ></div>
-                </div>
-              </div>
-              <!--end:pagination-->
+            <div class="relative">
+              @if(ldData){<app-loader class="z-40"></app-loader>}
+              <p-table
+              #datatable
+              [columns]="cols"
+              [value]="data"
+              [(selection)]="selected"
+              [tableStyle]="{ 'min-width': '100px' }"
+              [scrollable]="true"
+              [showLoader]="false"
+              showGridlines
+              stripedRows
+              [lazy]="true"
+              [rowHover]="true"
+              [paginator]="true"
+              [rows]="queryParams.length"
+              [totalRecords]="recordsTotal"
+              [rowsPerPageOptions]="[10, 25, 50]"
+              [scrollable]="true"
+              (onPage)="evtOnPageChange($event)"
+              class="border-0! text-mono!">
+                  <ng-template #header let-columns>
+                      <tr>
+                          <th style="width: 4rem" pFrozenColumn></th>
+                          <ng-container  *ngFor="let col of columns">
+                            @switch (col.field) {
+                                @case('nombre'){
+                                  <th [pSortableColumn]="col.field" pFrozenColumn class="text-nowrap font-normal! text-[14px] py-2!">
+                                      <div class="flex items-center gap-2">
+                                          {{ col.header }}
+                                          <p-sortIcon [field]="col.field" />
+                                      </div>
+                                  </th>
+                                }
+                                @default{
+                                   <th [pSortableColumn]="col.field" class="text-nowrap font-normal! text-[14px] py-2!">
+                                      <div class="flex items-center gap-2">
+                                          {{ col.header }}
+                                          <p-sortIcon [field]="col.field" />
+                                      </div>
+                                  </th>
+                                }
+                            }
+                           
+                          </ng-container>
+                      </tr>
+                  </ng-template>
+                  <ng-template #body let-rowData let-columns="columns">
+                      <tr [pSelectableRow]="rowData">
+                          <td class="cursor-pointer py-2!" pFrozenColumn>
+                            <p-tableRadioButton 
+                            [value]="rowData" 
+                            (click)="evtToggleSelection(rowData)"/>
+                          </td>
+                          <ng-container *ngFor="let col of columns">
+                            @switch(col.field){
+                              @case('f_inicio_venta'){
+                                <td class="text-nowrap py-1! text-[14px] font-light!">{{ utilService.dateFormat(rowData[col.field]!, "dd/MM/yyyy HH:mm a") }}</td>
+                              }
+                              @case('f_fin_venta'){
+                                <td class="text-nowrap py-1! text-[14px] font-light!">{{ utilService.dateFormat(rowData[col.field]!, "dd/MM/yyyy HH:mm a") }}</td>
+                              }
+                              @case('f_registro'){
+                                <td class="text-nowrap py-1! text-[14px] font-light!">{{ utilService.dateFormat(rowData[col.field]!, "dd/MM/yyyy HH:mm a") }}</td>
+                              }
+                              @case('f_sorteo'){
+                                <td class="text-nowrap py-1! text-[14px] font-light!">{{ utilService.dateFormat(rowData[col.field]!, "dd/MM/yyyy HH:mm a") }}</td>
+                              }
+                              @case('f_ext_sorteo'){
+                                <td class="text-nowrap py-1! text-[14px] font-light!">{{ rowData[col.field] != null ? utilService.dateFormat(rowData[col.field]!, "dd/MM/yyyy HH:mm a") : null }}</td>
+                              }
+                              @case('f_modifico'){
+                                <td class="text-nowrap py-1! text-[14px] font-light!">{{ rowData[col.field] != null ? utilService.dateFormat(rowData[col.field]!, "dd/MM/yyyy HH:mm a") : null }}</td>
+                              }
+                              @case('flag_rifas'){
+                                <td class="text-nowrap py-1! text-[14px] font-light! text-center!">
+                                  <i class="pi text-green-400" [ngClass]="{ 'pi-check-circle': rowData[col.field], 'pi-times-circle': !rowData[col.field] }"></i>
+                                </td>
+                              }
+                              @case('precio_rifa'){
+                                <td class="text-nowrap py-1! text-[14px] font-light! text-end!">{{ rowData[col.field] | currency:'PEN':'symbol':'1.2-2':'es-PE' }}</td>
+                              }
+                              @case('numero_min'){
+                                <td class="text-nowrap py-1! text-[14px] font-light! text-center!">{{ rowData[col.field] }}</td>
+                              }
+                              @case('numero_max'){
+                                <td class="text-nowrap py-1! text-[14px] font-light! text-center!">{{ rowData[col.field] }}</td>
+                              }
+                              @case('estado'){
+                                @switch (rowData[col.field]) {
+                                  @case('pendiente'){
+                                    <td class="text-nowrap py-1! text-[12px] font-bold! uppercase bg-amber-400 text-gray-600" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
+                                  }
+                                  @case('aperturado'){
+                                    <td class="text-nowrap py-1! text-[12px] font-bold! uppercase bg-green-200 text-gray-400" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
+                                  }
+                                  @case('cerrado'){
+                                    <td class="text-nowrap py-1! text-[12px] font-bold! uppercase bg-gray-400 text-gray-100" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
+                                  }
+                                  @case('sorteado'){
+                                    <td class="text-nowrap py-1! text-[12px] font-bold! uppercase bg-green-400 text-gray-600" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
+                                  }
+                                  @case('cancelado'){
+                                    <td class="text-nowrap py-1! text-[12px] font-bold! uppercase bg-red-400 text-gray-600" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
+                                  }
+                                  @default {
+                                    <td class="text-nowrap py-1! text-[12px] font-bold! uppercase" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
+                                  }
+                                }
+                              }
+                              @case('nombre') {
+                                <td class="text-nowrap py-1! text-[12px] font-light!" pFrozenColumn>{{rowData[col.field]}}</td>
+                              }
+                              @default {
+                                <td class="text-nowrap py-1! text-[12px] font-light!">{{rowData[col.field]}}</td>
+                              }
+                            }
+                          </ng-container>
+                      </tr>
+                  </ng-template>
+              </p-table>
+
+              <p-popover #op class="text-mono!">
+                  <div class="flex flex-col gap-4">
+                      <div>
+                          <span class="font-medium block mb-2">Cambiar estado</span>
+                          <ul class="list-none p-0 m-0 flex flex-col">
+                              <li *ngFor="let estado of estados" class="text-center text-nowrap text-[12px] font-bold! uppercase cursor-pointer py-3" [ngClass]="estado.class" (click)="evtOnSelectStatus(estado.value)">
+                                  {{ estado.value }}
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
+              </p-popover>
+
             </div>
         </div>
     </div>
