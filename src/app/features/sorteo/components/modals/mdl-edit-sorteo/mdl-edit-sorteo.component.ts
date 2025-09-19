@@ -8,17 +8,19 @@ import { ButtonModule } from 'primeng/button';
 import { EditorModule } from 'primeng/editor';
 import { MessageModule } from 'primeng/message';
 
-import { SorteoCreateResponseDto, SorteoFindByIdResponseDto, SorteoPayloadDto } from 'app/features/sorteo/models/sorteo.model';
+import { SorteoCreateResponseDto, SorteoFindByIdResponseDto, SorteoPayloadDto, SorteoUpdatePayloadDto } from 'app/features/sorteo/models/sorteo.model';
 import { SorteoService } from 'app/features/sorteo/services/sorteo.service';
-import { formatDate } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { Subscription } from 'rxjs';
 import { SkeletonModule } from 'primeng/skeleton';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
+
 
 @Component({
   selector: 'app-mdl-edit-sorteo',
-  imports: [FormsModule, DatePicker, InputNumberModule, InputTextModule, TextareaModule, ButtonModule, EditorModule, ReactiveFormsModule, MessageModule, ConfirmDialog, SkeletonModule],
+  imports: [FormsModule, DatePicker, InputNumberModule, InputTextModule, TextareaModule, ButtonModule, EditorModule, ReactiveFormsModule, MessageModule, ConfirmDialog, SkeletonModule, CommonModule, ToggleSwitchModule],
   templateUrl: './mdl-edit-sorteo.component.html',
   styleUrl: './mdl-edit-sorteo.component.scss',
   providers: [ConfirmationService]
@@ -48,11 +50,12 @@ export class MdlEditSorteoComponent implements OnInit, AfterViewInit, OnDestroy 
       descripcion: new FormControl(null, Validators.maxLength(500)),
       fechaVentaInicio: new FormControl(null, Validators.required),
       fechaVentaFin: new FormControl(null, [Validators.required, this.fechaMayorQue('fechaVentaInicio')]),
-      fechaSorteo: new FormControl(null, Validators.required),
-      fechaExtSorteo: new FormControl(null),
+      fechaSorteo: new FormControl(null, [Validators.required, this.fechaMayorIgualQue('fechaVentaFin')]),
+      fechaExtSorteo: new FormControl(null, this.fechaMayorQue('fechaSorteo')),
       precioRifa: new FormControl(0, [Validators.min(1), Validators.required]),
       numeroInicial: new FormControl(1, [Validators.min(1), Validators.required]),
-      numeroFinal: new FormControl(null, [Validators.required, this.numeroMayorQue('numeroInicial'), Validators.max(99999)])
+      numeroFinal: new FormControl(null, [Validators.required, this.numeroMayorQue('numeroInicial'), Validators.max(99999)]),
+      mostrarRifas: new FormControl(true, Validators.required),
     });
   }
 
@@ -73,10 +76,11 @@ export class MdlEditSorteoComponent implements OnInit, AfterViewInit, OnDestroy 
     return this.frmEditarSorteo.controls;
   }
 
-  get payload(): SorteoPayloadDto {
+  get payload(): SorteoUpdatePayloadDto {
     const form = this.frmEditarSorteo.value;
 
     return {
+      uuid: this.Id.toString(),
       nombre: form.nombre,
       descripcion: form.descripcion,
       f_inicio_venta: formatDate(form.fechaVentaInicio, 'yyyy-MM-ddTHH:mm:00', 'en-US'),
@@ -86,21 +90,22 @@ export class MdlEditSorteoComponent implements OnInit, AfterViewInit, OnDestroy 
       precio_rifa: form.precioRifa,
       numero_min: form.numeroInicial,
       numero_max: form.numeroFinal,
-      flag_rifas: true
+      flag_rifas: form.mostrarRifas
     };
   }
 
   // Events
   evtOnSubmit(): void{
+    this.isSubmitted = true;
+    if(this.frmEditarSorteo.invalid){
+      return;
+    }
+
     this.confirmationService.confirm({
         header: '¿Guardar cambios?',
         message: 'Confirmar la operación.',
         accept: () => {
-            this.isSubmitted = true;
-            if(this.frmEditarSorteo.invalid){
-              return;
-            }
-            
+
             this.frmEditarSorteo.disable();
             this.ldSubmit = true;
             
@@ -189,13 +194,35 @@ export class MdlEditSorteoComponent implements OnInit, AfterViewInit, OnDestroy 
     };
   }
 
+  fechaMayorIgualQue(controlComparado: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.parent) return null;
+
+      const comparado = control.parent.get(controlComparado);
+      if (!comparado) return null;
+
+      const fechaActual = control.value;
+      const fechaComparada = comparado.value;
+
+      if (fechaActual && fechaComparada) {
+        const fechaA = new Date(fechaActual);
+        const fechaB = new Date(fechaComparada);
+
+        if (fechaA < fechaB) {
+          return { fechaMayorIgualQue: { requeridoMayorIgualQue: controlComparado } };
+        }
+      }
+
+      return null;
+    };
+  }
+
   slugValido(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const valor = control.value;
 
       if (typeof valor !== 'string') return null;
 
-      // Expresión regular para slugs válidos: letras minúsculas, números y guiones
       const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
       if (!slugRegex.test(valor)) {
@@ -218,7 +245,8 @@ export class MdlEditSorteoComponent implements OnInit, AfterViewInit, OnDestroy 
       fechaExtSorteo: res.f_ext_sorteo ? new Date(res.f_ext_sorteo) : null,
       precioRifa: res.precio_rifa,
       numeroInicial: res.numero_min,
-      numeroFinal: res.numero_max
+      numeroFinal: res.numero_max,
+      mostrarRifas: res.flag_rifas
     });
   }
 

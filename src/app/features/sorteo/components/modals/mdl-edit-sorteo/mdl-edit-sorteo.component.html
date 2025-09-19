@@ -30,7 +30,7 @@
                 @if(ldData){
                     <p-skeleton width="100%" height="35px" class="mb-2" />
                 }@else{
-                    <input pInputText type="text" pSize="small" formControlName="slug" maxlength="500" autofocus="true" />
+                    <input pInputText type="text" pSize="small" formControlName="slug" maxlength="500" readonly />
                     @if (f.slug.invalid && isSubmitted) {
                         <p-message severity="error" size="small" variant="simple">
                         @if (f.slug.hasError('required')) {
@@ -109,7 +109,7 @@
                                 @if (f.fechaVentaFin.hasError('required')) {
                                     La fecha de fin de venta es requerida.
                                 }
-                                @if (f.fechaVentaFin.hasError('fechaVentaInicio')) {
+                                @if (f.fechaVentaFin.hasError('fechaMayorQue')) {
                                     La fecha de fin de venta debe ser mayor a la fecha de inicio de venta.
                                 }
                             </p-message>
@@ -135,7 +135,12 @@
                         [showSeconds]="false"/>
                         @if (f.fechaSorteo.invalid && isSubmitted) {
                             <p-message severity="error" size="small" variant="simple">
-                                La fecha del sorteo es requerida.
+                                @if (f.fechaSorteo.hasError('required')) {
+                                    La fecha del sorteo es requerida.
+                                }
+                                @if (f.fechaSorteo.hasError('fechaMayorIgualQue')) {
+                                    La fecha debe ser mayor o igual a la fecha de fin de venta.
+                                }
                             </p-message>
                         }
                     }
@@ -155,6 +160,14 @@
                         [showTime]="true"
                         hourFormat="12"
                         [showSeconds]="false"/>
+                    }
+
+                    @if (f.fechaExtSorteo.invalid && isSubmitted) {
+                        <p-message severity="error" size="small" variant="simple">
+                            @if (f.fechaExtSorteo.hasError('fechaMayorQue')) {
+                                La fecha debe ser mayor a la fecha del sorteo.
+                            }
+                        </p-message>
                     }
                 </div>
             </div>
@@ -241,6 +254,23 @@
                     }
                 </div>
 
+            </div>
+            <div class="grid grid-cols-2 gap-1">
+                <div class="flex flex-col gap-1">
+                    <label class="kt-form-label font-normal text-mono">
+                    Mostrar tickets? <span class="text-red-300">*</span>
+                    </label>
+                    <div class="flex items-center">
+                        <p-toggleswitch #mostrar formControlName="mostrarRifas">
+                            <ng-template #handle let-checked="checked">
+                                <i [ngClass]="['text-[8px]! m-auto!', 'pi', checked ? 'pi-check' : 'pi-times']"></i>
+                            </ng-template>
+                        </p-toggleswitch>
+                        <span class="ms-2 text-sm">{{ f.mostrarRifas.value ? 'SI' : 'NO' }}</span>
+                    </div>
+                    
+                </div>
+                <div></div>
             </div>
         </div>
     </div>

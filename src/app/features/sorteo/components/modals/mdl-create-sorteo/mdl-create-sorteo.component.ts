@@ -90,15 +90,16 @@ export class MdlCreateSorteoComponent implements OnInit, AfterViewInit, OnDestro
 
   // Events
   evtOnSubmit(): void{
+    this.isSubmitted = true;
+    if(this.frmNuevoSorteo.invalid){
+      return;
+    }
+
     this.confirmationService.confirm({
         header: '¿Guardar cambios?',
         message: 'Confirmar la operación.',
         accept: () => {
-            this.isSubmitted = true;
-            if(this.frmNuevoSorteo.invalid){
-              return;
-            }
-            
+
             this.frmNuevoSorteo.disable();
             this.ldSubmit = true;
             

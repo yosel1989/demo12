@@ -54,6 +54,8 @@
               [tableStyle]="{ 'min-width': '100px' }"
               [scrollable]="true"
               [showLoader]="false"
+              [resizableColumns]="true"
+              columnResizeMode="expand"
               showGridlines
               stripedRows
               [lazy]="true"
@@ -62,27 +64,48 @@
               [rows]="queryParams.length"
               [totalRecords]="recordsTotal"
               [rowsPerPageOptions]="[10, 25, 50]"
+              [first]="first"
               [scrollable]="true"
+              scrollHeight="400px"
               (onPage)="evtOnPageChange($event)"
               class="border-0! text-mono!">
                   <ng-template #header let-columns>
                       <tr>
-                          <th style="width: 4rem" pFrozenColumn></th>
                           <ng-container  *ngFor="let col of columns">
                             @switch (col.field) {
+                                @case('select'){
+                                  <th style="width: 4rem" pFrozenColumn></th>
+                                }
                                 @case('nombre'){
-                                  <th [pSortableColumn]="col.field" pFrozenColumn class="text-nowrap font-normal! text-[14px] py-2!">
+                                  <th 
+                                  pResizableColumn 
+                                  [pSortableColumn]="col.sort ? col.field : undefined" 
+                                  pFrozenColumn 
+                                  class="text-nowrap font-normal! text-[14px] py-2!">
                                       <div class="flex items-center gap-2">
                                           {{ col.header }}
-                                          <p-sortIcon [field]="col.field" />
+                                          @if(col.sort){<p-sortIcon [field]="col.field" />}
+                                      </div>
+                                  </th>
+                                }
+                                @case('acciones'){
+                                  <th 
+                                  pFrozenColumn 
+                                  [frozen]="true"
+                                  alignFrozen="right"
+                                  class="text-nowrap font-normal! text-[14px] py-2!">
+                                      <div class="flex items-center gap-2">
+                                          {{ col.header }}
                                       </div>
                                   </th>
                                 }
                                 @default{
-                                   <th [pSortableColumn]="col.field" class="text-nowrap font-normal! text-[14px] py-2!">
+                                   <th pResizableColumn 
+                                   [pSortableColumn]="col.sort ? col.field : undefined" 
+                                   class="text-nowrap font-normal! text-[14px] py-2!">
                                       <div class="flex items-center gap-2">
                                           {{ col.header }}
-                                          <p-sortIcon [field]="col.field" />
+                                          @if(col.sort){<p-sortIcon [field]="col.field" />}
                                       </div>
                                   </th>
                                 }
@@ -91,79 +114,103 @@
                           </ng-container>
                       </tr>
                   </ng-template>
+
+
+                 
                   <ng-template #body let-rowData let-columns="columns">
-                      <tr [pSelectableRow]="rowData">
-                          <td class="cursor-pointer py-2!" pFrozenColumn>
-                            <p-tableRadioButton 
-                            [value]="rowData" 
-                            (click)="evtToggleSelection(rowData)"/>
+                      <ng-container *ngIf="ldData">
+                        <tr>
+                          <td *ngFor="let col of columns; let i = index">
+                            <p-skeleton [width]="i == 0 ? '20px' : '100%'" height="20px"></p-skeleton>
                           </td>
-                          <ng-container *ngFor="let col of columns">
-                            @switch(col.field){
-                              @case('f_inicio_venta'){
-                                <td class="text-nowrap py-1! text-[14px] font-light!">{{ utilService.dateFormat(rowData[col.field]!, "dd/MM/yyyy HH:mm a") }}</td>
-                              }
-                              @case('f_fin_venta'){
-                                <td class="text-nowrap py-1! text-[14px] font-light!">{{ utilService.dateFormat(rowData[col.field]!, "dd/MM/yyyy HH:mm a") }}</td>
-                              }
-                              @case('f_registro'){
-                                <td class="text-nowrap py-1! text-[14px] font-light!">{{ utilService.dateFormat(rowData[col.field]!, "dd/MM/yyyy HH:mm a") }}</td>
-                              }
-                              @case('f_sorteo'){
-                                <td class="text-nowrap py-1! text-[14px] font-light!">{{ utilService.dateFormat(rowData[col.field]!, "dd/MM/yyyy HH:mm a") }}</td>
-                              }
-                              @case('f_ext_sorteo'){
-                                <td class="text-nowrap py-1! text-[14px] font-light!">{{ rowData[col.field] != null ? utilService.dateFormat(rowData[col.field]!, "dd/MM/yyyy HH:mm a") : null }}</td>
-                              }
-                              @case('f_modifico'){
-                                <td class="text-nowrap py-1! text-[14px] font-light!">{{ rowData[col.field] != null ? utilService.dateFormat(rowData[col.field]!, "dd/MM/yyyy HH:mm a") : null }}</td>
-                              }
-                              @case('flag_rifas'){
-                                <td class="text-nowrap py-1! text-[14px] font-light! text-center!">
-                                  <i class="pi text-green-400" [ngClass]="{ 'pi-check-circle': rowData[col.field], 'pi-times-circle': !rowData[col.field] }"></i>
-                                </td>
-                              }
-                              @case('precio_rifa'){
-                                <td class="text-nowrap py-1! text-[14px] font-light! text-end!">{{ rowData[col.field] | currency:'PEN':'symbol':'1.2-2':'es-PE' }}</td>
-                              }
-                              @case('numero_min'){
-                                <td class="text-nowrap py-1! text-[14px] font-light! text-center!">{{ rowData[col.field] }}</td>
-                              }
-                              @case('numero_max'){
-                                <td class="text-nowrap py-1! text-[14px] font-light! text-center!">{{ rowData[col.field] }}</td>
-                              }
-                              @case('estado'){
-                                @switch (rowData[col.field]) {
-                                  @case('pendiente'){
-                                    <td class="text-nowrap py-1! text-[12px] font-bold! uppercase bg-amber-400 text-gray-600" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
-                                  }
-                                  @case('aperturado'){
-                                    <td class="text-nowrap py-1! text-[12px] font-bold! uppercase bg-green-200 text-gray-400" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
-                                  }
-                                  @case('cerrado'){
-                                    <td class="text-nowrap py-1! text-[12px] font-bold! uppercase bg-gray-400 text-gray-100" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
-                                  }
-                                  @case('sorteado'){
-                                    <td class="text-nowrap py-1! text-[12px] font-bold! uppercase bg-green-400 text-gray-600" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
-                                  }
-                                  @case('cancelado'){
-                                    <td class="text-nowrap py-1! text-[12px] font-bold! uppercase bg-red-400 text-gray-600" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
-                                  }
-                                  @default {
-                                    <td class="text-nowrap py-1! text-[12px] font-bold! uppercase" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
+                        </tr>
+                      </ng-container>
+                      <ng-container *ngIf="!ldData">
+                          <tr [pSelectableRow]="rowData">
+                            <ng-container *ngFor="let col of columns">
+                              @switch(col.field){
+                                @case('select'){
+                                  <td class="cursor-pointer py-2!" pFrozenColumn pFrozenColumn [frozen]="true" alignFrozen="left">
+                                    <p-tableRadioButton 
+                                    [value]="rowData" 
+                                    (click)="evtToggleSelection(rowData)"
+                                    class="flex"/>
+                                  </td>
+                                }
+                                @case('f_inicio_venta'){
+                                  <td class="text-nowrap py-1! text-[14px] font-light!">{{ utilService.dateFormat(rowData[col.field]!, "dd/MM/yyyy HH:mm a") }}</td>
+                                }
+                                @case('f_fin_venta'){
+                                  <td class="text-nowrap py-1! text-[14px] font-light!">{{ utilService.dateFormat(rowData[col.field]!, "dd/MM/yyyy HH:mm a") }}</td>
+                                }
+                                @case('f_registro'){
+                                  <td class="text-nowrap py-1! text-[14px] font-light!">{{ utilService.dateFormat(rowData[col.field]!, "dd/MM/yyyy HH:mm a") }}</td>
+                                }
+                                @case('f_sorteo'){
+                                  <td class="text-nowrap py-1! text-[14px] font-light!">{{ utilService.dateFormat(rowData[col.field]!, "dd/MM/yyyy HH:mm a") }}</td>
+                                }
+                                @case('f_ext_sorteo'){
+                                  <td class="text-nowrap py-1! text-[14px] font-light!">{{ rowData[col.field] != null ? utilService.dateFormat(rowData[col.field]!, "dd/MM/yyyy HH:mm a") : null }}</td>
+                                }
+                                @case('f_modifico'){
+                                  <td class="text-nowrap py-1! text-[14px] font-light!">{{ rowData[col.field] != null ? utilService.dateFormat(rowData[col.field]!, "dd/MM/yyyy HH:mm a") : null }}</td>
+                                }
+                                @case('flag_rifas'){
+                                  <td class="text-nowrap py-1! text-[14px] font-light! text-center!">
+                                    <i class="pi text-green-400" [ngClass]="{ 'pi-check-circle': rowData[col.field], 'pi-times-circle': !rowData[col.field] }"></i>
+                                  </td>
+                                }
+                                @case('precio_rifa'){
+                                  <td class="text-nowrap py-1! text-[14px] font-light! text-end!">{{ rowData[col.field] | currency:'PEN':'symbol':'1.2-2':'es-PE' }}</td>
+                                }
+                                @case('numero_min'){
+                                  <td class="text-nowrap py-1! text-[14px] font-light! text-center!">{{ rowData[col.field] }}</td>
+                                }
+                                @case('numero_max'){
+                                  <td class="text-nowrap py-1! text-[14px] font-light! text-center!">{{ rowData[col.field] }}</td>
+                                }
+                                @case('estado'){
+                                  @switch (rowData[col.field]) {
+                                    @case('pendiente'){
+                                      <td class="text-nowrap py-1! text-[12px] font-bold! uppercase bg-amber-400 text-gray-600 text-center!" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
+                                    }
+                                    @case('aperturado'){
+                                      <td class="text-nowrap py-1! text-[12px] font-bold! uppercase bg-green-200 text-gray-400 text-center!" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
+                                    }
+                                    @case('cerrado'){
+                                      <td class="text-nowrap py-1! text-[12px] font-bold! uppercase bg-gray-400 text-gray-100 text-center!" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
+                                    }
+                                    @case('sorteado'){
+                                      <td class="text-nowrap py-1! text-[12px] font-bold! uppercase bg-green-400 text-gray-600 text-center!" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
+                                    }
+                                    @case('cancelado'){
+                                      <td class="text-nowrap py-1! text-[12px] font-bold! uppercase bg-red-400 text-gray-600 text-center!" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
+                                    }
+                                    @default {
+                                      <td class="text-nowrap py-1! text-[12px] font-bold! uppercase text-center!" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
+                                    }
                                   }
                                 }
+                                @case('nombre') {
+                                  <td class="text-nowrap py-1! text-[12px] font-light!" pFrozenColumn [frozen]="true" alignFrozen="left">{{rowData[col.field]}}</td>
+                                }
+                                @case('acciones') {
+                                  <td pFrozenColumn [frozen]="true" alignFrozen="right" class="text-nowrap py-1! text-[12px] font-light!">
+                                    <div class="flex gap-2 justify-center">
+                                      <p-button (click)="evtOnShowPopopverAcciones($event, rowData)" size="small" icon="pi pi-ellipsis-v"/>
+                                    </div>
+                                  </td>
+                                }
+                                @default {
+                                  <td class="text-nowrap py-1! text-[12px] font-light!">{{rowData[col.field]}}</td>
+                                }
                               }
-                              @case('nombre') {
-                                <td class="text-nowrap py-1! text-[12px] font-light!" pFrozenColumn>{{rowData[col.field]}}</td>
-                              }
-                              @default {
-                                <td class="text-nowrap py-1! text-[12px] font-light!">{{rowData[col.field]}}</td>
-                              }
-                            }
-                          </ng-container>
-                      </tr>
+                            </ng-container>
+                        </tr>
+                      </ng-container>
+                      
                   </ng-template>
+                  
               </p-table>
 
               <p-popover #op class="text-mono!">
@@ -184,3 +231,21 @@
     </div>
 </div>
 
+
+<p-menu #menuAcciones 
+        [model]="itemsMenu" 
+        [popup]="true">
+
+  <ng-template #submenuheader let-item>
+      <span class="font-bold text-sm">{{ item.label }}</span>
+  </ng-template>
+
+  <ng-template #item let-item>
+        <div pRipple class="text-sm flex items-center p-menu-item-link cursor-pointer!">
+            <i [class]="item.icon" [ngClass]="'text-[12px]!'"></i>
+            <span class="ml-2">{{ item.label }}</span>
+            <span>{{ item.shortcut }}</span>
+        </div>
+  </ng-template>
+
+</p-menu>

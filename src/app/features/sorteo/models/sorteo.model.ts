@@ -38,6 +38,20 @@ export interface SorteoPayloadDto {
   flag_rifas: boolean;
 }
 
+export interface SorteoUpdatePayloadDto {
+  uuid: string;
+  nombre: string;
+  descripcion: string;
+  f_inicio_venta: string;   // formato ISO 8601
+  f_fin_venta: string;
+  f_sorteo: string;
+  f_ext_sorteo: string | null;
+  precio_rifa: number;
+  numero_min: number;
+  numero_max: number;
+  flag_rifas: boolean;
+}
+
 
 
 export interface SorteoCreateResponseDto {

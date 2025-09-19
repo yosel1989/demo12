@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class StorageService {
-  private readonly TOKEN_KEY = '';
+  private readonly TOKEN_KEY = '_t';
 
  
   private storage: Storage = localStorage;

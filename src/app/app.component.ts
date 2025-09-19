@@ -4,6 +4,12 @@ import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { MetronicInitService } from './core/services/metronic-init.service';
 
+import { jwtDecode } from "jwt-decode";
+import { JwtPayloadDto } from './features/auth/models/auth.model';
+
+
+
+
 @Component({
   selector: 'body[app-root]',
   imports: [RouterOutlet],
@@ -70,5 +76,27 @@ export class AppComponent {
         this.renderer.addClass(this.document.body, className.trim());
       }
     });
+  }
+
+
+  private checkTokenExpiration(): void {
+    const token = localStorage.getItem('_t');
+    if (!token) return;
+
+    try {
+      const { exp } = jwtDecode<JwtPayloadDto>(token);
+      const now = Math.floor(Date.now() / 1000);
+
+      if (exp < now) {
+        localStorage.removeItem('_t');
+        // Redirigir al login o mostrar mensaje
+        this.router.navigate(['/login']);
+      }
+    } catch (error) {
+      console.error('Token inválido o mal formado');
+      localStorage.removeItem('_t');
+      this.router.navigate(['/login']);
+
+    }
   }
 }
