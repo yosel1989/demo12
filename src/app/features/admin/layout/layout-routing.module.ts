@@ -15,6 +15,10 @@ const routes: Routes = [
         path: 'sorteos',
         loadChildren: () => import('../pages/sorteo/sorteo.module').then(m => m.SorteoModule)
       },
+      {
+        path: 'archivos',
+        loadChildren: () => import('../pages/archivo/archivo.module').then(m => m.ArchivoModule)
+      },
     ]
   }
 ];
