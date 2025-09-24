@@ -14,9 +14,60 @@ import { es } from 'primelocale/es.json';
 import localeEsPe from '@angular/common/locales/es-PE';
 import { registerLocaleData } from '@angular/common';
 
+import { definePreset } from '@primeng/themes';
+
 registerLocaleData(localeEsPe, 'es-PE');
 
+
+export const MyPreset = definePreset(Aura, {
+  semantic: {
+    primary: {
+      50: '{amber.50}',
+      100: '{amber.100}',
+      200: '{amber.200}',
+      300: '{amber.300}',
+      400: '{amber.400}',
+      500: '{amber.500}',
+      600: '{amber.600}',
+      700: '{amber.700}',
+      800: '{amber.800}',
+      900: '{amber.900}',
+      950: '{amber.950}'
+    },
+    colorScheme: {
+      light: {
+        primary: {
+          color: '{amber.700}',
+          hoverColor: '{amber.600}',
+          activeColor: '{amber.500}'
+        },
+        highlight: {
+          background: '{amber.100}',
+          focusBackground: '{amber.300}',
+          color: '#000000',
+          focusColor: '#000000'
+        }
+      },
+      dark: {
+        primary: {
+          color: '{amber.500}',
+          hoverColor: '{amber.100}',
+          activeColor: '{amber.50}'
+        },
+        highlight: {
+          background: 'rgba(255, 193, 7, .16)',
+          focusBackground: 'rgba(255, 193, 7, .24)',
+          color: 'rgba(0,0,0,.87)',
+          focusColor: 'rgba(0,0,0,.87)'
+        }
+      }
+    }
+  }
+});
+
+
 export const appConfig: ApplicationConfig = {
+  
   providers: [
     provideAnimationsAsync(),
     provideZoneChangeDetection({ eventCoalescing: true }), 
@@ -31,7 +82,7 @@ export const appConfig: ApplicationConfig = {
     providePrimeNG({
         translation: es,
         theme: {
-            preset: Aura,
+            preset: MyPreset,
             options: {
                 darkModeSelector: '.dark'
             }
