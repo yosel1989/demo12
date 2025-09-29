@@ -9,7 +9,7 @@ import { TableCollectionResponse } from 'app/shared/services/models/table.model'
   providedIn: 'root'
 })
 export class SorteoService {
-  private baseUrl = `${environment.apiUrl}/admin/sorteo`;
+  private baseUrl = `${environment.apiUrl}/admin/sorteos`;
 
   constructor(private http: HttpClient) {}
 

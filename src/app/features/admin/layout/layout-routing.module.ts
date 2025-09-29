@@ -19,6 +19,10 @@ const routes: Routes = [
         path: 'archivos',
         loadChildren: () => import('../pages/archivo/archivo.module').then(m => m.ArchivoModule)
       },
+      {
+        path: 'customers',
+        loadChildren: () => import('../pages/customer/customer.module').then(m => m.CustomerModule)
+      },
     ]
   }
 ];
