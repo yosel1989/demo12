@@ -141,3 +141,33 @@ export interface SorteoChangeStatusPayloadDto{
   uuid: string;
 	estado: string;
 }
+
+
+
+
+
+export interface CustomerInfoByUuidToAdminResponseDto {
+  id: number;
+  uuid: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  identity_document_type_id: number;
+  identity_document_type: string;
+  identity_document_number: string;
+  prefix_phone: string;
+  phone: string;
+  department?: string;
+  province?: string;
+  district?: string;
+  employee_id_created?: number;
+  employee_created?: string;
+  created_at: string; // ISO date string
+  employee_id_updated?: number;
+  employee_updated?: string;
+  updated_at?: string; // ISO date string
+  gender_id?: number;
+  gender?: string;
+  date_birth?: string; // ISO date string
+  location_code?: string;
+}

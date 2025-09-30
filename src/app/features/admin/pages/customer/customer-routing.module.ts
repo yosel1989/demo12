@@ -4,14 +4,7 @@ import { CustomerComponent } from './customer.component';
 
 const routes: Routes = [{
   path: '',
-  component: CustomerComponent,
-  children: [
-    {
-      path: ':uuid',
-      loadComponent: () =>
-        import('./detalle/detalle.component').then(m => m.DetalleComponent)
-    }
-  ]
+  component: CustomerComponent
 }];
 
 @NgModule({

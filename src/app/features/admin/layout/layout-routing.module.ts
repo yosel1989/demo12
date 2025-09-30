@@ -23,6 +23,29 @@ const routes: Routes = [
         path: 'customers',
         loadChildren: () => import('../pages/customer/customer.module').then(m => m.CustomerModule)
       },
+      {
+        path: 'customers/:uuid',
+        loadComponent: () => import('../pages/customer/customer-info/customer-info.component').then(m => m.CustomerInfoComponent),
+        children:[
+          {
+            path: 'general',
+            loadComponent: () => import('../pages/customer/customer-general/customer-general.component').then(m => m.CustomerGeneralComponent)
+          }, {
+            path: 'financial-bets',
+            loadComponent: () => import('../pages/customer/customer-finantial-bets/customer-finantial-bets.component').then(m => m.CustomerFinantialBetsComponent)
+          }, {
+            path: 'reports',
+            loadComponent: () => import('../pages/customer/customer-reports/customer-reports.component').then(m => m.CustomerReportsComponent)
+          }, {
+            path: 'configuration',
+            loadComponent: () => import('../pages/customer/customer-configuration/customer-configuration.component').then(m => m.CustomerConfigurationComponent)
+          }, {
+            path: '',
+            redirectTo: 'general',
+            pathMatch: 'full'
+          }
+        ]
+      },
     ]
   }
 ];

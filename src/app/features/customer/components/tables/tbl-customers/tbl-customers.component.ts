@@ -23,7 +23,8 @@ import { RippleModule } from 'primeng/ripple';
 
 import { Menu, MenuModule } from 'primeng/menu';
 import { CustomerCollectionQueryParamsDto, CustomerCollectionResponseDto } from 'app/features/customer/models/customer.model';
-import { CustomerService } from 'app/features/customer/services/sorteo.service';
+import { CustomerService } from 'app/features/customer/services/customer.service';
+import { Router } from '@angular/router';
 
 interface Column {
     field: string;
@@ -93,7 +94,8 @@ export class TblCustomersComponent implements OnInit, AfterViewInit, OnDestroy {
 	private alertService: AlertService,
 	private api: CustomerService,
 	public utilService: UtilService,
-	private cdr: ChangeDetectorRef
+	private cdr: ChangeDetectorRef,
+	private route: Router
   ) {}
 
   ngOnInit(): void {
@@ -229,6 +231,11 @@ export class TblCustomersComponent implements OnInit, AfterViewInit, OnDestroy {
 	});*/
   }
 
+  evtOnShowInfo(): void{
+	this.handleNoSelection();
+	this.route.navigate(["/admin/customers/",this.selected?.uuid]);
+  }
+
   evtToggleSelection(row: CustomerCollectionResponseDto): void{
 	if (this.selected === row) {
 		this.selected = undefined; // deselecciona si ya estaba seleccionado
@@ -331,6 +338,22 @@ export class TblCustomersComponent implements OnInit, AfterViewInit, OnDestroy {
 		this.selected = item;
 		this.menuAcciones?.toggle(event);
 	}*/
+  }
+
+
+  // Handlers
+  private handleNoSelection(): void{
+	if(!this.selected){
+		this.alertService.showToast({
+			position: 'bottom-end',
+			icon: "warning",
+			title: "Debe seleccionar un registro.",
+			showCloseButton: true,
+			timerProgressBar: true,
+			timer: 4000
+		});
+		return;
+	}
   }
 
 
