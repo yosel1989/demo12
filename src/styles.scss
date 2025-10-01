@@ -5,6 +5,17 @@
 
 .p-card.card-sm{
     .p-card-body{
-        @apply p-3! border-t-4! dark:border-gray-600!;
+        @apply p-3! border-t-4! dark:border-black!;
     }
+}
+
+
+.p-tooltip {
+  .p-tooltip-text,
+  .p-tooltip-arrow{
+    @apply dark:bg-gray-900!;
+  }
+}
+.p-tooltip-arrow{
+    @apply dark:border-t-gray-900!;
 }

@@ -1,20 +1,483 @@
 <div class="kt-container-fixed" id="contentContainer"></div>
+<div class="flex flex-col gap-3 max-w-full">
+    <div class="kt-container px-4 flex flex-col gap-3 text-xs!">
 
-
-<div class="kt-container-fixed">
-    <div class="flex flex-wrap items-center lg:items-end justify-between gap-5 pb-7.5">
-        <div class="flex flex-col justify-center gap-2">
-            <h1 class="text-xl font-medium leading-none text-mono">
-                Dashboard
-            </h1>
-            <div class="flex items-center gap-2 text-sm font-normal text-secondary-foreground">
-                Central Hub for Personal Customization
+        <div class="flex justify-between">
+            <div>
+                <p-button size="small" icon="pi pi-cog"></p-button>
+            </div>
+            <div>
+                <p-inputgroup>
+                    @if(typeDateSelect.value === 'range'){
+                        <p-datepicker
+                        [formControl]="datesFormControl"
+                        [autofocus]="true" 
+                        size="small" 
+                        [showOnFocus]="true" 
+                        [showButtonBar]="true" 
+                        selectionMode="range" 
+                        [readonlyInput]="true" style="margin-right: -1px;" 
+                        (onSelect)="evtOnDatePickerSelect($event)"
+                         />
+                    }
+                    <p-select [formControl]="typeDateSelect" size="small" [options]="options" optionLabel="name" optionValue="code" placeholder="Select a City" class="text-xs! min-w-[150px] max-w-[150px]" />
+                </p-inputgroup>
             </div>
         </div>
-        <div class="flex items-center gap-2.5">
-            <a class="kt-btn kt-btn-outline" href="html/demo1/public-profile/profiles/default.html">
-                View Profile
-            </a>
+        <div class="overflow-x-auto lg:overflow-x-visible!">
+            
+            <div class="flex flex-nowrap lg:grid! lg:grid-cols-3! xl:grid-cols-6! gap-3">
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full">
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/input-money.png" width="35px" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Total depositos</div>
+                                    @if(loading){
+                                        <p-skeleton class="mt-1" width="35px" class="min-w-[35px]" height="28px"></p-skeleton>
+                                    }@else {
+                                        <div class="text-2xl font-bold text-amber-600">65</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full">
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/output-money.png" width="35px" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Total de retiros</div>
+                                    @if(loading){
+                                        <p-skeleton class="mt-1" width="35px" class="min-w-[35px]" height="28px"></p-skeleton>
+                                    }@else {
+                                        <div class="text-2xl font-bold text-amber-600">65</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full">
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/input-money.png" width="35px" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Jugadores que iniciaron sesión</div>
+                                    @if(loading){
+                                        <p-skeleton class="mt-1" width="35px" class="min-w-[35px]" height="28px"></p-skeleton>
+                                    }@else {
+                                        <div class="text-2xl font-bold text-amber-600">65</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full">
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/input-money.png" width="35px" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Conteo total de inicio de sesión</div>
+                                    @if(loading){
+                                        <p-skeleton class="mt-1" width="35px" class="min-w-[35px]" height="28px"></p-skeleton>
+                                    }@else {
+                                        <div class="text-2xl font-bold text-amber-600">65</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full">
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/input-money.png" width="35px" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Jugadores registrados</div>
+                                    @if(loading){
+                                        <p-skeleton class="mt-1" width="35px" class="min-w-[35px]" height="28px"></p-skeleton>
+                                    }@else {
+                                        <div class="text-2xl font-bold text-amber-600">65</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full">
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/money-customers.png" width="35px" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Saldo de jugadores</div>
+                                    @if(loading){
+                                        <p-skeleton class="mt-1" width="35px" class="min-w-[35px]" height="28px"></p-skeleton>
+                                    }@else {
+                                        <div class="text-2xl font-bold text-amber-600">65</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full">
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/input-money.png" width="35px" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Perfil</div>
+                                    @if(loading){
+                                        <p-skeleton class="mt-1" width="35px" class="min-w-[35px]" height="28px"></p-skeleton>
+                                    }@else {
+                                        <div class="text-2xl font-bold text-amber-600">65</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full">
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/person_input_money.png" width="35px" class="min-w-[35px]" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Jugadores que realizarón depositos</div>
+                                    @if(loading){
+                                        <p-skeleton class="mt-1" width="35px" class="min-w-[35px]" height="28px"></p-skeleton>
+                                    }@else {
+                                        <div class="text-2xl font-bold text-amber-600">65</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full">
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/person_output_money.png" width="35px" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Jugadores que realizaron retiros</div>
+                                    @if(loading){
+                                        <p-skeleton class="mt-1" width="35px" class="min-w-[35px]" height="28px"></p-skeleton>
+                                    }@else {
+                                        <div class="text-2xl font-bold text-amber-600">65</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full">
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/input-money.png" width="35px" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Saldo del bono</div>
+                                    @if(loading){
+                                        <p-skeleton class="mt-1" width="35px" class="min-w-[35px]" height="28px"></p-skeleton>
+                                    }@else {
+                                        <div class="text-2xl font-bold text-amber-600">65</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full">
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/input-money.png" width="35px" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Aumentar</div>
+                                    @if(loading){
+                                        <p-skeleton class="mt-1" width="35px" class="min-w-[35px]" height="28px"></p-skeleton>
+                                    }@else {
+                                        <div class="text-2xl font-bold text-amber-600">65</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full! shadow-xl!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full">
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/input-money.png" width="35px" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Reducir</div>
+                                    @if(loading){
+                                        <p-skeleton class="mt-1" width="35px" class="min-w-[35px]" height="28px"></p-skeleton>
+                                    }@else {
+                                        <div class="text-2xl font-bold text-amber-600">65</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        
+
+    </div>
+
+    <div class="kt-container px-4 flex flex-col gap-3 text-sm!">
+        <p-card class="card-sm h-full bg-gray-800!">
+            <ng-template #header>
+                <p class="px-3 py-1 font-semibold">Perfil</p>
+            </ng-template>
+            <div class="overflow-x-auto lg:overflow-visible">
+                <div class="flex flex-col gap-2">
+  
+                    <div class="flex flex-nowrap lg:grid! lg:grid-cols-3! xl:grid-cols-7! font-semibold">
+                        <div class="flex-none w-[60%] md:w-[40%]! lg:w-full! p-3 bg-gray-900">Apuesta deportiva</div>
+                        <div class="flex-none w-[60%] md:w-[40%]! lg:w-full! p-3 bg-gray-900">Ganancia de deporte</div>
+                        <div class="flex-none w-[60%] md:w-[40%]! lg:w-full! p-3 bg-gray-900">Apuesta de casino</div>
+                        <div class="flex-none w-[60%] md:w-[40%]! lg:w-full! p-3 bg-gray-900">Ganancia de casino</div>
+                        <div class="flex-none w-[60%] md:w-[40%]! lg:w-full! p-3 bg-gray-900">Comisión</div>
+                        <div class="flex-none w-[60%] md:w-[40%]! lg:w-full! p-3 bg-gray-900">Prima</div>
+                        <div class="flex-none w-[60%] md:w-[40%]! lg:w-full! p-3 bg-gray-900">Costo del torneo</div>
+                    </div>
+
+                    <div class="flex flex-nowrap lg:grid! lg:grid-cols-3! xl:grid-cols-7!">
+                        <div class="flex-none w-[60%] md:w-[40%]! lg:w-full! p-3 border-y-2 border-s-2 border-gray-900">
+                            <div class="flex items-center gap-1">
+                                515315.01
+                                <span class="pi pi-sort-up-fill text-green-400 text-[14px]!"></span>
+                            </div>
+                            
+                        </div>
+                        <div class="flex-none w-[60%] md:w-[40%]! lg:w-full! p-3 border-y-2 border-gray-900">
+                            <div class="flex items-center gap-1">
+                                515315.01
+                                <span class="pi pi-sort-down-fill text-red-400 text-[14px]!"></span>
+                            </div>
+                        </div>
+                        <div class="flex-none w-[60%] md:w-[40%]! lg:w-full! p-3 border-y-2 border-gray-900">
+                            <div class="flex items-center gap-1">
+                                515315.01
+                                <span class="pi pi-sort-up-fill text-green-400 text-[14px]!"></span>
+                            </div>
+                        </div>
+                        <div class="flex-none w-[60%] md:w-[40%]! lg:w-full! p-3 border-y-2 border-gray-900">
+                            <div class="flex items-center gap-1">
+                                515315.01
+                                <span class="pi pi-sort-down-fill text-red-400 text-[14px]!"></span>
+                            </div>
+                        </div>
+                        <div class="flex-none w-[60%] md:w-[40%]! lg:w-full! p-3 border-y-2 border-gray-900">
+                            <div class="flex items-center gap-1">
+                                515315.01
+                                <span class="pi pi-sort-up-fill text-green-400 text-[14px]!"></span>
+                            </div>
+                        </div>
+                        <div class="flex-none w-[60%] md:w-[40%]! lg:w-full! p-3 border-y-2 border-gray-900">
+                            <div class="flex items-center gap-1">
+                                515315.01
+                                <span class="pi pi-sort-down-fill text-red-400 text-[14px]!"></span>
+                            </div>
+                        </div>
+                        <div class="flex-none w-[60%] md:w-[40%]! lg:w-full! p-3 border-y-2 border-e-2 border-gray-900">
+                            <div class="flex items-center gap-1">
+                                515315.01
+                                <span class="pi pi-sort-up-fill text-green-400 text-[14px]!"></span>
+                            </div>
+                        </div>
+                    </div> 
+ 
+                </div>
+            </div> 
+            
+        </p-card>
+    </div>
+
+    <div class="kt-container px-4 grid grid-cols-1 lg:grid-cols-3 gap-3 text-sm!">
+        <div>
+            <p-card class="card-sm h-full bg-gray-800!">
+                <ng-template #header>
+                    <p class="px-3 py-1 font-semibold">Perfil</p>
+                </ng-template>
+                <div class="flex flex-col gap-2">
+                    <div class="grid grid-cols-7 bg-gray-900 font-semibold p-4">
+                        <div>Apuesta deportiva</div>
+                        <div>Ganancia de deporte</div>
+                        <div>Apuesta de casino</div>
+                        <div>Ganancia de casino</div>
+                        <div>Comisión</div>
+                        <div>Prima</div>
+                        <div>Costo del torneo</div>
+                    </div>
+                    <div class="grid grid-cols-7 p-4 border border-gray-900">
+                        <div class="flex items-center gap-2">
+                            515315.00
+                            <span class="pi pi-sort-up-fill text-green-400"></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            515315.00
+                            <span class="pi pi-sort-down-fill text-red-400"></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            515315.00
+                            <span class="pi pi-sort-up-fill text-green-400"></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            515315.00
+                            <span class="pi pi-sort-down-fill text-red-400"></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            515315.00
+                            <span class="pi pi-sort-up-fill text-green-400"></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            515315.00
+                            <span class="pi pi-sort-down-fill text-red-400"></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            515315.00
+                            <span class="pi pi-sort-up-fill text-green-400"></span>
+                        </div>
+                    </div> 
+                </div>
+            </p-card>
+        </div>
+
+        <div>
+            <p-card class="card-sm h-full bg-gray-800!">
+                <ng-template #header>
+                    <p class="px-3 py-1 font-semibold">Resumen de juegos</p>
+                </ng-template>
+                <div class="flex flex-col gap-2">
+                    <div class="grid grid-cols-7 bg-gray-900 font-semibold p-4">
+                        <div>Apuesta deportiva</div>
+                        <div>Ganancia de deporte</div>
+                        <div>Apuesta de casino</div>
+                        <div>Ganancia de casino</div>
+                        <div>Comisión</div>
+                        <div>Prima</div>
+                        <div>Costo del torneo</div>
+                    </div>
+                    <div class="grid grid-cols-7 p-4 border border-gray-900">
+                        <div class="flex items-center gap-2">
+                            515315.00
+                            <span class="pi pi-sort-up-fill text-green-400"></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            515315.00
+                            <span class="pi pi-sort-down-fill text-red-400"></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            515315.00
+                            <span class="pi pi-sort-up-fill text-green-400"></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            515315.00
+                            <span class="pi pi-sort-down-fill text-red-400"></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            515315.00
+                            <span class="pi pi-sort-up-fill text-green-400"></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            515315.00
+                            <span class="pi pi-sort-down-fill text-red-400"></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            515315.00
+                            <span class="pi pi-sort-up-fill text-green-400"></span>
+                        </div>
+                    </div> 
+                </div>
+            </p-card>
+        </div>
+
+        <div>
+            <p-card class="card-sm h-full bg-gray-800!">
+                <ng-template #header>
+                    <p class="px-3 py-1 font-semibold">Perfil</p>
+                </ng-template>
+                <div class="flex flex-col gap-2">
+                    <div class="grid grid-cols-7 bg-gray-900 font-semibold p-4">
+                        <div>Apuesta deportiva</div>
+                        <div>Ganancia de deporte</div>
+                        <div>Apuesta de casino</div>
+                        <div>Ganancia de casino</div>
+                        <div>Comisión</div>
+                        <div>Prima</div>
+                        <div>Costo del torneo</div>
+                    </div>
+                    <div class="grid grid-cols-7 p-4 border border-gray-900">
+                        <div class="flex items-center gap-2">
+                            515315.00
+                            <span class="pi pi-sort-up-fill text-green-400"></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            515315.00
+                            <span class="pi pi-sort-down-fill text-red-400"></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            515315.00
+                            <span class="pi pi-sort-up-fill text-green-400"></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            515315.00
+                            <span class="pi pi-sort-down-fill text-red-400"></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            515315.00
+                            <span class="pi pi-sort-up-fill text-green-400"></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            515315.00
+                            <span class="pi pi-sort-down-fill text-red-400"></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            515315.00
+                            <span class="pi pi-sort-up-fill text-green-400"></span>
+                        </div>
+                    </div> 
+                </div>
+            </p-card>
+        </div>
+
     </div>
 </div>

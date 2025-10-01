@@ -7,5 +7,5 @@ import { Component, HostBinding } from '@angular/core';
   styleUrl: './content.component.scss'
 })
 export class ContentComponent {
-  @HostBinding('class') claseHost = 'grow';
+  @HostBinding('class') claseHost = 'grow max-w-screen';
 }
