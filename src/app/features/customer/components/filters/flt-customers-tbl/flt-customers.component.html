@@ -1,0 +1,138 @@
+<div class="card text-xs!">
+    <p-panel [toggleable]="true" class="text-xs! rounded-xl! border-none! bg-gray-800!">
+        <ng-template #header>
+            Filtrar
+        </ng-template>
+        <form [formGroup]="frmFilterCustomer">
+            <div class="grid grid-cols-6 gap-2">
+                <div>
+                    <div class="flex flex-col gap-1">
+                        <label class="font-normal">
+                        Fecha de registro
+                        </label>
+                        <p-datepicker
+                            size="small" 
+                            [showOnFocus]="true" 
+                            [showButtonBar]="true"
+                            placeholder="Todo"
+                            [readonlyInput]="true"
+                            inputStyleClass="text-xs!"
+                            [iconDisplay]="'input'" 
+                            [showIcon]="true"
+                            />
+                    </div>
+                </div>
+                <div>
+                    <div class="flex flex-col gap-1">
+                        <label class="font-normal">
+                        Nombre de usuario
+                        </label>
+                        <input pInputText type="text" pSize="small" maxlength="500" autofocus="true" class="text-xs!"/>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex flex-col gap-1">
+                        <label class="font-normal">
+                        ID Jugador
+                        </label>
+                        <input pInputText type="text" pSize="small" maxlength="500" autofocus="true" class="text-xs!"/>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex flex-col gap-1">
+                        <label class="font-normal">
+                        Departamento
+                        </label>
+                        <p-select size="small" [options]="departments.value()"  
+                        formControlName="idDepartment"
+                        placeholder="Todo" 
+                        [editable]="true" optionLabel="name" 
+                        optionValue="code" 
+                        inputId="text-xs"
+                        [showClear]="true"
+                        [loading]="departments.isLoading()"
+                        class="w-full" />
+                    </div>
+                </div>
+                <div>
+                    <div class="flex flex-col gap-1">
+                        <label class="font-normal">
+                        Provincia {{ provinces.isLoading() }}
+                        </label>
+                        <p-select size="small" 
+                        [options]="provinces.value()"  
+                        formControlName="idProvince"
+                        placeholder="Todo" 
+                        [editable]="true" 
+                        optionLabel="name" 
+                        optionValue="code" 
+                        inputId="text-xs"
+                        [showClear]="true"
+                        [loading]="provinces.isLoading()"
+                        class="w-full" />
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex flex-col gap-1">
+                        <label class="font-normal">
+                        Fecha de registro
+                        </label>
+                        <input pInputText type="text" pSize="small" maxlength="500" autofocus="true" class="text-xs!"/>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex flex-col gap-1">
+                        <label class="font-normal">
+                        Fecha de registro
+                        </label>
+                        <input pInputText type="text" pSize="small" maxlength="500" autofocus="true" class="text-xs!"/>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex flex-col gap-1">
+                        <label class="font-normal">
+                        Fecha de registro
+                        </label>
+                        <input pInputText type="text" pSize="small" maxlength="500" autofocus="true" class="text-xs!"/>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex flex-col gap-1">
+                        <label class="font-normal">
+                        Fecha de registro
+                        </label>
+                        <input pInputText type="text" pSize="small" maxlength="500" autofocus="true" class="text-xs!"/>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex flex-col gap-1">
+                        <label class="font-normal">
+                        Fecha de registro
+                        </label>
+                        <input pInputText type="text" pSize="small" maxlength="500" autofocus="true" class="text-xs!"/>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex flex-col gap-1">
+                        <label class="font-normal">
+                        Fecha de registro
+                        </label>
+                        <input pInputText type="text" pSize="small" maxlength="500" autofocus="true" class="text-xs!"/>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex flex-col gap-1">
+                        <label class="font-normal">
+                        Fecha de registro
+                        </label>
+                        <input pInputText type="text" pSize="small" maxlength="500" autofocus="true" class="text-xs!"/>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+        
+    </p-panel>
+</div>
+
