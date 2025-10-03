@@ -7,7 +7,7 @@ import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { DatePickerModule } from 'primeng/datepicker';
 import { UbigeoService } from 'app/shared/services/ubigeo.service';
-import { rxResource, toObservable } from '@angular/core/rxjs-interop';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { SelectModule } from 'primeng/select';
 import { BehaviorSubject, of, switchMap } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -15,19 +15,19 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { OverlayOptions } from 'primeng/api';
 import { GenderService } from 'app/shared/services/gender.service';
-import { CustomerFilterPayload } from 'app/features/customer/models/customer.model';
 import { formatDate } from '@angular/common';
+import { TransactionFilterPayload } from 'app/features/transaction/models/transaction.model';
 
 @Component({
-  selector: 'app-flt-customers',
+  selector: 'app-flt-transaction-tbl',
   imports: [PanelModule, AvatarModule, ButtonModule, MenuModule, CardModule, InputTextModule, DatePickerModule, SelectModule, ReactiveFormsModule, FormsModule, IconFieldModule, InputIconModule],
-  templateUrl: './flt-customers.component.html',
-  styleUrl: './flt-customers.component.scss',
+  templateUrl: './flt-transaction-tbl.component.html',
+  styleUrl: './flt-transaction-tbl.component.scss',
   providers: []
 })
-export class FltCustomersComponent implements OnInit, AfterViewInit, OnDestroy {
+export class FltTransactionTblComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @Output() OnValueChanges: EventEmitter<CustomerFilterPayload | null> = new EventEmitter<CustomerFilterPayload | null>();
+  @Output() OnValueChanges: EventEmitter<TransactionFilterPayload | null> = new EventEmitter<TransactionFilterPayload | null>();
 
   frmFilterCustomer: FormGroup = new FormGroup({});
   codeDepartment$ = new BehaviorSubject<string | null>(null);
@@ -74,18 +74,14 @@ export class FltCustomersComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {
     this.frmFilterCustomer = this.fb.group({
         createdAt: new FormControl(null),
-        userName: new FormControl(null),
-        idCustomer: new FormControl(null),
-        idDepartment: new FormControl(null),
-        idProvince: new FormControl(null),
-        idDistrict: new FormControl(null),
-        lastLoginDate: new FormControl(null),
-        verifiedAt: new FormControl(null),
+        playId: new FormControl(null),
+        customerId: new FormControl(null),
+        type: new FormControl(null),
         firstName: new FormControl(null),
         lastName: new FormControl(null),
-        idGender: new FormControl(null),
         email: new FormControl(null),
-        birthDate: new FormControl(null)
+        userName: new FormControl(null),
+        origin: new FormControl(null)
     });
 
     this.frmFilterCustomer.get('idDepartment')?.valueChanges.subscribe(val => {
@@ -153,21 +149,17 @@ export class FltCustomersComponent implements OnInit, AfterViewInit, OnDestroy {
         };
   }
 
-  get payload(): CustomerFilterPayload{
+  get payload(): TransactionFilterPayload{
     return{
-      created_at: this.f.createdAt.value ? formatDate(this.f.createdAt.value, 'yyyy-MM-dd', 'en-US') : null,
-      user_name: this.f.userName.value,
-      id_customer: this.f.idCustomer.value ? parseInt(this.f.idCustomer.value, 10) : null,
-      id_department: this.f.idDepartment.value,
-      id_province: this.f.idProvince.value,
-      id_district: this.f.idDistrict.value,
-      last_login_date: this.f.lastLoginDate.value ? formatDate(this.f.lastLoginDate.value, 'yyyy-MM-dd', 'en-US') : null,
-      verified_at: this.f.verifiedAt.value ? formatDate(this.f.verifiedAt.value, 'yyyy-MM-dd', 'en-US') : null,
-      first_name: this.f.firstName.value,
-      last_name: this.f.lastName.value,
-      id_gender: this.f.idGender.value ? parseInt(this.f.idGender.value) : null,
+      play_id: this.f.idCustomer.value ? parseInt(this.f.idCustomer.value, 10) : null,
+      customer_id: this.f.idCustomer.value ? parseInt(this.f.idCustomer.value, 10) : null,
+      type: this.f.type.value,
+      first_name_customer: this.f.firstName.value,
+      last_name_customer: this.f.lastName.value,
       email: this.f.email.value,
-      birth_date: this.f.birthDate.value ? formatDate(this.f.birthDate.value, 'yyyy-MM-dd', 'en-US') : null
+      user_name: this.f.userName.value,
+      created_at: this.f.createdAt.value ? formatDate(this.f.createdAt.value, 'yyyy-MM-dd', 'en-US') : null,
+      origin: this.f.origin.value
     }
   }
 

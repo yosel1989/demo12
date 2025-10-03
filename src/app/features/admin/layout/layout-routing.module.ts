@@ -46,6 +46,10 @@ const routes: Routes = [
           }
         ]
       },
+      {
+        path: 'report/transactions',
+        loadChildren: () => import('../pages/transaction/transaction.module').then(m => m.TransactionModule)
+      },
     ]
   }
 ];

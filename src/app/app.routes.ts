@@ -1,24 +1,5 @@
 import { Routes } from '@angular/router';
-import { Demo1Component } from './layouts/demo1/demo1.component';
-import { IndexComponent as Demo1IndexComponent } from './pages/demo1/index/index.component';
-import { Demo2Component } from './layouts/demo2/demo2.component';
-import { IndexComponent as Demo2IndexComponent } from './pages/demo2/index/index.component';
-import { Demo3Component } from './layouts/demo3/demo3.component';
-import { IndexComponent as Demo3IndexComponent } from './pages/demo3/index/index.component';
-import { Demo4Component } from './layouts/demo4/demo4.component';
-import { IndexComponent as Demo4IndexComponent } from './pages/demo4/index/index.component';
-import { Demo5Component } from './layouts/demo5/demo5.component';
-import { IndexComponent as Demo5IndexComponent } from './pages/demo5/index/index.component';
-import { Demo6Component } from './layouts/demo6/demo6.component';
-import { IndexComponent as Demo6IndexComponent } from './pages/demo6/index/index.component';
-import { Demo7Component } from './layouts/demo7/demo7.component';
-import { IndexComponent as Demo7IndexComponent } from './pages/demo7/index/index.component';
-import { Demo8Component } from './layouts/demo8/demo8.component';
-import { IndexComponent as Demo8IndexComponent } from './pages/demo8/index/index.component';
-import { Demo9Component } from './layouts/demo9/demo9.component';
-import { IndexComponent as Demo9IndexComponent } from './pages/demo9/index/index.component';
-import { Demo10Component } from './layouts/demo10/demo10.component';
-import { IndexComponent as Demo10IndexComponent } from './pages/demo10/index/index.component';
+
 
 
 

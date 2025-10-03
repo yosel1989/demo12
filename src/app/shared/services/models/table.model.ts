@@ -11,3 +11,12 @@ export interface TableCollectionResponse<T> {
   data: T;
   pagination: PaginationDto;
 }
+
+
+export interface DatatableQueryParamsDto{
+  info: string;
+	start: number;
+	order: string;
+	length: number;
+	draw: number;
+}

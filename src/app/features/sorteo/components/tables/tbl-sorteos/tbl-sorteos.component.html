@@ -1,45 +1,75 @@
-<div class="grid gap-5 lg:gap-7.5">
+<div class="grid gap-5 lg:gap-7.5 text-xs!">
     <div class="kt-card kt-card-grid min-w-full">
-        <div class="kt-card-header">
-            <h3 class="kt-card-title">Lista de sorteos</h3>
+        <div class="kt-card-header min-h-auto! py-3">
+            Lista de sorteos
         </div>
 
         <div class="card border-0!">
             <p-toolbar class="rounded-none! border-none!">
                 <ng-template #start>
-                    <p-button icon="pi pi-plus" class="mr-2" size="small" 
+                    <p-button 
+                    icon="pi pi-plus text-xs!" 
+                    class="mr-2" 
+                    size="small" 
                     text
                     severity="secondary"
                     pTooltip="Nuevo sorteo"
                     tooltipPosition="top"
+                    tooltipStyleClass="text-xs!"
                     placeholder="Top"
+                    styleClass="w-[30px]! h-[30px]!"
                     (click)="evtOnCreate()"
                     />
-                    @if(selected){<p-button icon="pi pi-pencil" class="mr-2" size="small" 
+                    @if(selected){
+                      <p-button 
+                      icon="pi pi-pencil text-xs!" 
+                      class="mr-2" 
+                      size="small" 
+                      text 
+                      severity="warn" 
+                      pTooltip="Editar sorteo" 
+                      tooltipPosition="top"
+                      tooltipStyleClass="text-xs!"
+                      placeholder="Top"
+                      styleClass="w-[30px]! h-[30px]!"
+                      (click)="evtOnEdit()"
+                      />
+                    }
+                    <p-button 
+                    icon="pi pi-refresh text-xs!" 
+                    class="mr-2 text-xs!" 
+                    size="small" 
                     text 
-                    severity="warn" 
-                    pTooltip="Editar sorteo" 
-                    tooltipPosition="top" 
-                    placeholder="Top"
-                    (click)="evtOnEdit()"
-                    />}
-                    <p-button icon="pi pi-refresh" class="mr-2" size="small" text 
                     severity="secondary" 
                     pTooltip="Actualizar" 
-                    tooltipPosition="top" 
+                    tooltipPosition="top"
+                    tooltipStyleClass="text-xs!"
                     placeholder="Top"
+                    styleClass="w-[30px]! h-[30px]!"
                     (click)="evtOnReload()"
                     />
-                    <p-button icon="pi pi-cloud-download" text size="small"
+                    <p-button 
+                    icon="pi pi-cloud-download text-xs!" 
+                    text 
+                    size="small"
                     severity="secondary" 
                     pTooltip="Exportar Excel" 
-                    tooltipPosition="top" 
+                    tooltipPosition="top"
+                    tooltipStyleClass="text-xs!"
+                    placeholder="Top"
+                    styleClass="w-[30px]! h-[30px]!"
                     placeholder="Top" />
                 </ng-template>
                 <ng-template #end>
                     <p-iconfield iconPosition="left">
-                        <p-inputicon class="pi pi-search" />
-                        <input #inputFilter type="text" pInputText pSize="small" placeholder="Buscar ..." 
+                        <p-inputicon class="pi pi-search text-xs!" />
+                        <input 
+                        #inputFilter 
+                        type="text" 
+                        pInputText 
+                        pSize="small" 
+                        placeholder="Buscar ..." 
+                        class="text-xs! ps-[30px]!"
                           (input)="evtOnFilter(inputFilter.value)"/>
                     </p-iconfield>
                 </ng-template>
@@ -172,19 +202,19 @@
                                 @case('estado'){
                                   @switch (rowData[col.field]) {
                                     @case('pendiente'){
-                                      <td class="text-nowrap py-1! font-bold! uppercase bg-amber-400 text-gray-600 text-center!" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
+                                      <td class="text-nowrap py-1! text-center!" (click)="evtOnShowPopopver($event, rowData)"><p-tag [value]="rowData[col.field]" class="font-light! w-full" /></td>
                                     }
                                     @case('aperturado'){
-                                      <td class="text-nowrap py-1! font-bold! uppercase bg-green-200 text-gray-400 text-center!" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
+                                      <td class="text-nowrap py-1! text-center!" (click)="evtOnShowPopopver($event, rowData)"><p-tag severity="success" [value]="rowData[col.field]" class="font-light! w-full"/></td>
                                     }
                                     @case('cerrado'){
-                                      <td class="text-nowrap py-1! font-bold! uppercase bg-gray-400 text-gray-100 text-center!" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
+                                      <td class="text-nowrap py-1! text-center!" (click)="evtOnShowPopopver($event, rowData)"><p-tag severity="secondary" [value]="rowData[col.field]"  class="font-light! w-full"/></td>
                                     }
                                     @case('sorteado'){
-                                      <td class="text-nowrap py-1! font-bold! uppercase bg-green-400 text-gray-600 text-center!" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
+                                      <td class="text-nowrap py-1! text-center!" (click)="evtOnShowPopopver($event, rowData)"><p-tag severity="success" [value]="rowData[col.field]" class="font-light! w-full bg-green-400! text-black!"/></td>
                                     }
                                     @case('cancelado'){
-                                      <td class="text-nowrap py-1! font-bold! uppercase bg-red-400 text-gray-600 text-center!" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
+                                      <td class="text-nowrap py-1! text-center!" (click)="evtOnShowPopopver($event, rowData)"><p-tag severity="danger" [value]="rowData[col.field]"  class="font-light! w-full"/></td>
                                     }
                                     @default {
                                       <td class="text-nowrap py-1! font-bold! uppercase text-center!" (click)="evtOnShowPopopver($event, rowData)">{{ rowData[col.field] }}</td>
@@ -197,7 +227,13 @@
                                 @case('acciones') {
                                   <td pFrozenColumn [frozen]="true" alignFrozen="right" class="text-nowrap py-1! font-light!">
                                     <div class="flex gap-2 justify-center">
-                                      <p-button (click)="evtOnShowPopopverAcciones($event, rowData)" size="small" icon="pi pi-ellipsis-v"/>
+                                      <p-button 
+                                      (click)="evtOnShowPopopverAcciones($event, rowData)" 
+                                      size="small" 
+                                      icon="pi pi-ellipsis-v"
+                                      [outlined]="true"
+                                      styleClass="text-xs! p-1! w-[25px]!"
+                                      />
                                     </div>
                                   </td>
                                 }

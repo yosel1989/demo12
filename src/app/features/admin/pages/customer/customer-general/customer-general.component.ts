@@ -16,15 +16,15 @@ export class CustomerGeneralComponent implements OnInit, AfterViewInit{
     activeTabValue: any = '0';
 
     tabs = [
-        { value: '0', label: 'Información del jugador', icon: 'pi pi-home' },
-        { value: '1', label: 'Información adicional', icon: 'pi pi-chart-line' },
-        { value: '2', label: 'Info Privada de Jugador', icon: 'pi pi-list' },
-        { value: '3', label: 'Verificación de Jugador',  icon: 'pi pi-inbox' },
-        { value: '4', label: 'Notas', icon: 'pi pi-inbox' },
-        { value: '5', label: 'Documento de Imagen', icon: 'pi pi-inbox' },
-        { value: '6', label: 'Mensajes',  icon: 'pi pi-inbox' },
-        { value: '7', label: 'Emails', icon: 'pi pi-inbox' },
-        { value: '8', label: 'Juegos Favoritos', icon: 'pi pi-inbox' },
+        { value: '0', label: 'Información del jugador', icon: 'pi pi-home', disabled: false },
+        { value: '1', label: 'Información adicional', icon: 'pi pi-chart-line', disabled: true },
+        { value: '2', label: 'Info Privada de Jugador', icon: 'pi pi-list', disabled: true },
+        { value: '3', label: 'Verificación de Jugador',  icon: 'pi pi-inbox', disabled: true },
+        { value: '4', label: 'Notas', icon: 'pi pi-inbox', disabled: true },
+        { value: '5', label: 'Documento de Imagen', icon: 'pi pi-inbox', disabled: true },
+        { value: '6', label: 'Mensajes',  icon: 'pi pi-inbox', disabled: true },
+        { value: '7', label: 'Emails', icon: 'pi pi-inbox', disabled: true },
+        { value: '8', label: 'Juegos Favoritos', icon: 'pi pi-inbox', disabled: true },
     ];
 
     constructor(

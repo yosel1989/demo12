@@ -11,7 +11,7 @@
 <p-tabs scrollable class="shadow-lg! relative">
     <p-tablist>
         @for(tab of tabs; track tab.route){
-            <p-tab [value]="tab.route"  [routerLink]="tab.route" routerLinkActive="p-tab-active" class="py-2! font-light! text-xs! text-mono">
+            <p-tab [value]="tab.route" [disabled]="tab.disable" [routerLink]="tab.route" routerLinkActive="p-tab-active" class="py-2! font-light! text-xs! text-mono">
                 <span class="font-semibold">{{ tab.label }}</span>
             </p-tab>
         }

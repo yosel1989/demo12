@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
@@ -16,6 +16,7 @@ import { FltCustomersComponent } from 'app/features/customer/components/filters/
 })
 export class CustomerComponent implements OnInit, AfterViewInit{
 
+    @ViewChild('tblCustomers') tblCustomers: any;
 
     constructor(
     ) {}
@@ -26,6 +27,12 @@ export class CustomerComponent implements OnInit, AfterViewInit{
 
     ngAfterViewInit(): void{
         
+    }
+
+    // Events
+    evtOnChangeValuesFilters(event: any): void{
+      console.log('value filters', event);
+      this.tblCustomers?.reload();
     }
 
 }

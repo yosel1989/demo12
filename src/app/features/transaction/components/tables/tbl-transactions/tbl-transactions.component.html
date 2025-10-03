@@ -1,83 +1,29 @@
-<div class="grid gap-5 lg:gap-7.5 text-xs!">
+<div class="grid gap-5 lg:gap-7.5 text-xs! ">
     <div class="kt-card kt-card-grid min-w-full">
         <div class="kt-card-header h-auto! min-h-auto! py-3">
-            Lista de jugadores
+            Lista de transacciones
         </div>
 
         <div class="card border-0!">
-            <p-toolbar class="rounded-none! border-none!">
+            <p-toolbar class="rounded-none! border-none! bg-gray-900!">
                 <ng-template #start>
                   <div class="flex gap-1">
-                      <p-button icon="pi pi-angle-left text-xs!" size="small" 
-                      [disabled]="isFirstPage()"
-                      [outlined]="true"
-                      text
+                      <p-button label="csv" 
+                      size="small" 
                       severity="secondary"
-                      pTooltip="Nuevo sorteo"
+                      pTooltip="Descargar CSV"
                       tooltipPosition="top"
                       tooltipStyleClass="text-xs!"
                       placeholder="Top"
-                      styleClass="w-[30px]! h-[30px]!"
-                      (click)="evtPrev()"
+                      styleClass="w-[30px]! h-[30px]! bg-gray-600!"
                       />
-                      <p-button icon="pi pi-angle-right text-xs!" size="small" 
-                      [disabled]="isLastPage()"
-                      [outlined]="true"
-                      text
-                      severity="secondary"
-                      pTooltip="Nuevo sorteo"
-                      tooltipPosition="top"
-                      tooltipStyleClass="text-xs!"
-                      placeholder="Top"
-                      styleClass="w-[30px]! h-[30px]!"
-                      (click)="evtNext()"
-                      />
-                      <p-button icon="pi pi-plus text-xs!" size="small" 
-                      [outlined]="true"
-                      text
-                      severity="secondary"
-                      pTooltip="Nuevo sorteo"
-                      tooltipPosition="top"
-                      tooltipStyleClass="text-xs!"
-                      placeholder="Top"
-                      styleClass="w-[30px]! h-[30px]!"
-                      (click)="evtOnCreate()"
-                      />
-                      @if(selected){<p-button icon="pi pi-pencil text-xs!" size="small" 
-                      text 
-                      severity="warn" 
-                      pTooltip="Editar sorteo" 
-                      tooltipPosition="top"
-                      tooltipStyleClass="text-xs!"
-                      placeholder="Top"
-                      styleClass="w-[30px]! h-[30px]!"
-                      (click)="evtOnEdit()"
-                      />
-                      <p-button icon="pi pi-eye text-xs!"  size="small" 
-                      text 
-                      severity="warn" 
-                      pTooltip="Ver info" 
-                      tooltipPosition="top"
-                      tooltipStyleClass="text-xs!"
-                      placeholder="Top"
-                      styleClass="w-[30px]! h-[30px]!"
-                      (click)="evtOnShowInfo()"
-                      />}
-                      <p-button icon="pi pi-refresh text-xs!" size="small" text 
-                      severity="secondary" 
-                      pTooltip="Actualizar" 
-                      tooltipPosition="top" 
-                      tooltipStyleClass="text-xs!"
-                      placeholder="Top"
-                      styleClass="w-[30px]! h-[30px]!"
-                      (click)="reload()"
-                      />
-                      <p-button icon="pi pi-cloud-download text-xs!" text size="small"
+                      <p-button label="xls"
+                      size="small"
                       severity="secondary" 
                       pTooltip="Exportar Excel" 
                       tooltipPosition="top" 
                       tooltipStyleClass="text-xs!"
-                      styleClass="w-[30px]! h-[30px]!"
+                      styleClass="w-[30px]! h-[30px]! bg-gray-600!"
                       placeholder="Top" />
                   </div>
                 </ng-template>
@@ -93,7 +39,6 @@
               @if(ldData){<app-loader class="z-40"></app-loader>}
               <p-table
               #datatable
-              [showCurrentPageReport]="true"
               [columns]="cols"
               [value]="data"
               [(selection)]="selected"
@@ -131,17 +76,6 @@
                                       <div class="flex items-center gap-2">
                                           {{ col.header }}
                                           @if(col.sort){<p-sortIcon [field]="col.field" />}
-                                      </div>
-                                  </th>
-                                }
-                                @case('acciones'){
-                                  <th 
-                                    pFrozenColumn 
-                                    [frozen]="true"
-                                    alignFrozen="right"
-                                    class="text-nowrap font-normal! py-2!">
-                                      <div class="flex items-center gap-2">
-                                          {{ col.header }}
                                       </div>
                                   </th>
                                 }
@@ -240,17 +174,6 @@
                                 @case('nombre') {
                                   <td class="text-nowrap py-1! font-light!" >{{rowData[col.field]}}</td>
                                 }
-                                @case('acciones') {
-                                  <td pFrozenColumn [frozen]="true" alignFrozen="right" class="text-nowrap py-1! font-light!">
-                                    <div class="flex gap-2 justify-center">
-                                      <p-button (click)="evtOnShowPopopverAcciones($event, rowData)" size="small" 
-                                      icon="pi pi-ellipsis-v" 
-                                      [outlined]="true"
-                                      styleClass="text-xs! p-1! w-[25px]!"
-                                      />
-                                    </div>
-                                  </td>
-                                }
                                 @default {
                                   <td class="text-nowrap py-1! font-light!">{{rowData[col.field]}}</td>
                                 }
@@ -259,13 +182,6 @@
                         </tr>
                       </ng-container>
                       
-                  </ng-template>
-
-                  <ng-template #paginatorleft>
-                      <p-button type="button" icon="pi pi-plus" text />
-                  </ng-template>
-                  <ng-template #paginatorright>
-                      <p-button type="button" icon="pi pi-cloud" text />
                   </ng-template>
                   
               </p-table>

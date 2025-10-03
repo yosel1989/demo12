@@ -171,3 +171,22 @@ export interface CustomerInfoByUuidToAdminResponseDto {
   date_birth?: string; // ISO date string
   location_code?: string;
 }
+
+
+
+
+export interface CustomerFilterPayload {
+    created_at: string | null;
+    user_name: string | null;
+    id_customer: number | null;
+    id_department: string | null;
+    id_province: string | null;
+    id_district: string | null;
+    last_login_date: string | null;
+    verified_at: string | null;
+    first_name: string | null;
+    last_name: string | null;
+    id_gender: number | null;
+    email: string | null;
+    birth_date: string | null;
+}

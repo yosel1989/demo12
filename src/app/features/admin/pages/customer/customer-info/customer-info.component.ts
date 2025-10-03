@@ -22,10 +22,10 @@ export class CustomerInfoComponent implements OnInit, AfterViewInit{
     home: MenuItem | undefined;
 
     tabs = [
-        { route: 'general', label: 'General', icon: 'pi pi-home' },
-        { route: 'financial-bets', label: 'Apuestas Financieras', icon: 'pi pi-chart-line' },
-        { route: 'reports', label: 'Reportes', icon: 'pi pi-list' },
-        { route: 'configuration', label: 'Configuración', icon: 'pi pi-inbox' }
+        { route: 'general', label: 'General', icon: 'pi pi-home', disable: false },
+        { route: 'financial-bets', label: 'Apuestas Financieras', icon: 'pi pi-chart-line', disable: true },
+        { route: 'reports', label: 'Reportes', icon: 'pi pi-list', disable: true },
+        { route: 'configuration', label: 'Configuración', icon: 'pi pi-inbox', disable: true }
     ];
 
     constructor(

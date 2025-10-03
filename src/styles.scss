@@ -20,6 +20,7 @@
     @apply dark:border-t-gray-900!;
 }
 
-#text-xs{
-  @apply text-xs!
+#text-xs,
+::ng-deep .p-select-filter{
+  @apply text-xs!;
 }

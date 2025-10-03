@@ -1,7 +1,7 @@
 <p-tabs [(value)]="activeTabValue" class="vertical" (onChange)="evtOnTabChange($event)" (valueChange)="evtOnTabChange($event)">
     <p-tablist class="tablist-vertical ps-4 pt-4">
         @for(tab of tabs; track tab.value){
-            <p-tab [value]="tab.value" class="py-2! font-light! text-xs! text-mono w-full">
+            <p-tab [disabled]="tab.disabled" [value]="tab.value" class="py-2! font-light! text-xs! text-mono w-full">
                 <span class="font-semibold">{{ tab.label }}</span>
             </p-tab>
         }

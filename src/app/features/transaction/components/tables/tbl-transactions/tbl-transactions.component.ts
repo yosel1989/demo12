@@ -13,7 +13,7 @@ import { AlertService } from 'app/shared/services/alert.service';
 import { Subject, Subscription, switchMap, tap } from 'rxjs';
 import { TableModule } from 'primeng/table';
 import { UtilService } from 'app/shared/services/util.service';
-import { TableCollectionResponse } from 'app/shared/services/models/table.model';
+import { DatatableQueryParamsDto, TableCollectionResponse } from 'app/shared/services/models/table.model';
 import { LoaderComponent } from "app/shared/components/loader/loder.component";
 import { TagModule } from 'primeng/tag';
 import { Popover, PopoverModule } from 'primeng/popover';
@@ -22,9 +22,9 @@ import { RippleModule } from 'primeng/ripple';
 
 
 import { Menu, MenuModule } from 'primeng/menu';
-import { CustomerCollectionQueryParamsDto, CustomerCollectionResponseDto } from 'app/features/customer/models/customer.model';
-import { CustomerService } from 'app/features/customer/services/customer.service';
 import { Router } from '@angular/router';
+import { TransactionService } from 'app/features/transaction/services/transaction.service';
+import { TransactionCollectionResponseDto } from 'app/features/transaction/models/transaction.model';
 
 interface Column {
     field: string;
@@ -34,13 +34,13 @@ interface Column {
 }
 
 @Component({
-  selector: 'app-tbl-customers',
+  selector: 'app-tbl-transactions',
   imports: [CommonModule, Toolbar, ButtonModule, InputTextModule, IconField, InputIcon, TooltipModule, TableModule, LoaderComponent, TagModule, PopoverModule, MenuModule, SkeletonModule, RippleModule ],
-  templateUrl: './tbl-customers.component.html',
-  styleUrl: './tbl-customers.component.scss',
+  templateUrl: './tbl-transactions.component.html',
+  styleUrl: './tbl-transactions.component.scss',
   providers: [DialogService]
 })
-export class TblCustomersComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TblTransactionsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('op') op!: Popover;
   @ViewChild('menuAcciones') menuAcciones!: Menu;
@@ -52,11 +52,11 @@ export class TblCustomersComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private subs = new Subscription();
 
-  data: CustomerCollectionResponseDto[] = [];
+  data: TransactionCollectionResponseDto[] = [];
   cols: Column[] = [];
-  selected: CustomerCollectionResponseDto | undefined;
+  selected: TransactionCollectionResponseDto | undefined;
 
-  queryParams: CustomerCollectionQueryParamsDto = {
+  queryParams: DatatableQueryParamsDto = {
 	info: '',
 	start: 0,
 	order: 'desc',
@@ -92,7 +92,7 @@ export class TblCustomersComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
 	public dialogService: DialogService,
 	private alertService: AlertService,
-	private api: CustomerService,
+	private api: TransactionService,
 	public utilService: UtilService,
 	private cdr: ChangeDetectorRef,
 	private route: Router
@@ -101,18 +101,16 @@ export class TblCustomersComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
 	this.cols = [
 		{ field: 'select', header: '', sort: false },
-		{ field: 'id', header: 'ID', sort: true},
-		{ field: 'nombre', header: 'Nombre', sort: true, sticky: true },
-		{ field: 'apellido_paterno', header: 'Apellido Paterno', sort: true  },
-		{ field: 'apellido_materno', header: 'Apellido Materno', sort: true  },
-		{ field: 'correo', header: 'Correo', sort: true  },
-		{ field: 'numero_documento', header: 'N° Documento', sort: true  },
-		{ field: 'pref_telefono', header: 'Pref. Teléfono', sort: true  },
-		{ field: 'emp_registro', header: 'Registrado Por', sort: true  },
-		{ field: 'f_registro', header: 'Fecha de Registro', sort: true  },
-		{ field: 'emp_modifico', header: 'Modificado Por', sort: true  },
-		{ field: 'f_modifico', header: 'Fecha de Modificación', sort: true  },
-		{ field: 'acciones', header: 'Acciones', sort: false, sticky: true }
+		{ field: 'id', header: 'ID Jugada', sort: true},
+		{ field: 'id_customer', header: 'ID Jugador', sort: true, sticky: true },
+		{ field: 'currency', header: 'Moneda', sort: true  },
+		{ field: 'amount', header: 'Monto', sort: true  },
+		{ field: 'type', header: 'Tipo', sort: true  },
+		{ field: 'first_name_customer', header: 'Nombre', sort: true  },
+		{ field: 'last_name_customer', header: 'Apellido', sort: true  },
+		{ field: 'user_name', header: 'Nombre de Usuario', sort: true  },
+		{ field: 'created_at', header: 'Creado', sort: true  },
+		{ field: 'Fuente', header: 'origin', sort: true  }
 	];
 	this.cdr.markForCheck();
   }
@@ -124,7 +122,7 @@ export class TblCustomersComponent implements OnInit, AfterViewInit, OnDestroy {
       switchMap(() => this.api.getAll(this.params))
     )
     .subscribe({
-      next: (res: TableCollectionResponse<CustomerCollectionResponseDto[]>) => {
+      next: (res: TableCollectionResponse<TransactionCollectionResponseDto[]>) => {
 		this.ldData = false;
 		this.data = res.data;
 		this.recordsTotal = res.pagination.recordsFiltered ? res.pagination.recordsFiltered : res.pagination.recordsTotal;
@@ -148,16 +146,8 @@ export class TblCustomersComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // Getters
-  get params(): CustomerCollectionQueryParamsDto{
+  get params(): DatatableQueryParamsDto{
 	return this.queryParams;
-  }
-
-  isLastPage(): boolean {
-	return this.data ? this.first + this.queryParams.length >= this.recordsFiltered : true;
-  }
-
-  isFirstPage(): boolean {
-	return this.data ? this.first === 0 : true;
   }
 
   // Events
@@ -245,10 +235,10 @@ export class TblCustomersComponent implements OnInit, AfterViewInit, OnDestroy {
 
   evtOnShowInfo(): void{
 	this.handleNoSelection();
-	this.route.navigate(["/admin/customers/",this.selected?.uuid]);
+	this.route.navigate(["/admin/customers/",this.selected?.id]);
   }
 
-  evtToggleSelection(row: CustomerCollectionResponseDto): void{
+  evtToggleSelection(row: TransactionCollectionResponseDto): void{
 	if (this.selected === row) {
 		this.selected = undefined; // deselecciona si ya estaba seleccionado
 	} else {
@@ -275,7 +265,7 @@ export class TblCustomersComponent implements OnInit, AfterViewInit, OnDestroy {
 	this.evtOnReload();
   }
 
-  evtOnShowPopopver(event: any, item: CustomerCollectionResponseDto): void{
+  evtOnShowPopopver(event: any, item: TransactionCollectionResponseDto): void{
 	this.selected = item;
 	this.op.show(event);
 
@@ -331,7 +321,7 @@ export class TblCustomersComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
-  evtOnShowPopopverAcciones(event: Event, item: CustomerCollectionResponseDto): void {
+  evtOnShowPopopverAcciones(event: Event, item: TransactionCollectionResponseDto): void {
 	const target = event.currentTarget as HTMLElement;
 	/*if(this.menuAcciones?.visible){
 		console.log(this.selected);
@@ -350,19 +340,6 @@ export class TblCustomersComponent implements OnInit, AfterViewInit, OnDestroy {
 		this.selected = item;
 		this.menuAcciones?.toggle(event);
 	}*/
-  }
-
-  evtNext() {
-    this.queryParams = {
-		...this.queryParams,
-		start : this.first + this.queryParams.length 
-	};
-	this.reload();
-  }
-
-  evtPrev() {
-    this.first = this.first - this.queryParams.length;
-	this.reload();
   }
 
 
@@ -386,7 +363,7 @@ export class TblCustomersComponent implements OnInit, AfterViewInit, OnDestroy {
   private loadData(): void{
 	this.ldData = true;
 	const sub = this.api.getAll(this.params).subscribe({
-		next: (res: TableCollectionResponse<CustomerCollectionResponseDto[]>) => {
+		next: (res: TableCollectionResponse<TransactionCollectionResponseDto[]>) => {
 			//console.log('recordsTotal', res.pagination.recordsTotal);
 			this.ldData = false;
 			this.data = res.data;

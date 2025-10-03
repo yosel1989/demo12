@@ -4,3 +4,6 @@
 @import "primeicons/primeicons.css";
 
 
+::ng-deep .p-select-filter{
+  @apply text-xs!;
+}
