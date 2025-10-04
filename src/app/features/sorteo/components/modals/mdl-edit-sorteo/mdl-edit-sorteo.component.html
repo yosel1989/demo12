@@ -3,13 +3,22 @@
         <div class="flex flex-col gap-4">
             <div class="flex flex-col gap-1">
                 
-                <label class="kt-form-label font-normal text-mono">
+                <label class="kt-form-label font-normal">
                 Nombre del Sorteo <span class="text-red-300">*</span>
                 </label>
                 @if(ldData){
                     <p-skeleton width="100%" height="35px" class="mb-2" />
                 }@else{
-                    <input pInputText type="text" pSize="small" formControlName="nombre" maxlength="500" autofocus="true" />
+                    <input 
+                    fluid
+                    pInputText 
+                    type="text" 
+                    pSize="small" 
+                    formControlName="nombre" 
+                    maxlength="500" 
+                    autofocus="true" 
+                    text
+                    class="text-xs!"/>
                     @if (f.nombre.invalid && isSubmitted) {
                         <p-message severity="error" size="small" variant="simple">
                         @if (f.nombre.hasError('required')) {
@@ -24,13 +33,20 @@
             </div>
             <div class="flex flex-col gap-1">
                 
-                <label class="kt-form-label font-normal text-mono">
+                <label class="kt-form-label font-normal">
                 Slug <span class="text-red-300">*</span>
                 </label>
                 @if(ldData){
                     <p-skeleton width="100%" height="35px" class="mb-2" />
                 }@else{
-                    <input pInputText type="text" pSize="small" formControlName="slug" maxlength="500" readonly />
+                    <input 
+                    pInputText 
+                    type="text" 
+                    pSize="small" 
+                    formControlName="slug" 
+                    maxlength="500" 
+                    readonly 
+                    class="text-xs"/>
                     @if (f.slug.invalid && isSubmitted) {
                         <p-message severity="error" size="small" variant="simple">
                         @if (f.slug.hasError('required')) {
@@ -47,13 +63,16 @@
                 }
             </div>
             <div class="flex flex-col gap-1">
-                <label class="kt-form-label font-normal text-mono">
+                <label class="kt-form-label font-normal">
                 Descripción
                 </label>
                 @if(ldData){
                     <p-skeleton width="100%" height="320px" class="mb-2" />
                 }@else{
-                    <p-editor [style]="{ height: '320px' }" formControlName="descripcion" />
+                    <p-editor 
+                    [style]="{ height: '320px' }" 
+                    formControlName="descripcion" 
+                    class="text-xs!"/>
                     @if (f.descripcion.invalid && isSubmitted) {
                         <p-message severity="error" size="small" variant="simple">
                         @if (f.descripcion.hasError('maxLength')) {
@@ -67,20 +86,25 @@
         <div class="flex flex-col gap-4">
             <div class="grid grid-cols-2 gap-4">
                 <div class="flex flex-col gap-1">
-                    <label class="kt-form-label font-normal text-mono">
+                    <label class="kt-form-label font-normal">
                     Fecha de Venta Inicio <span class="text-red-300">*</span>
                     </label>
                     @if(ldData){
                         <p-skeleton width="100%" height="35px" class="mb-2" />
                     }@else{
-                        <p-datepicker size="small" formControlName="fechaVentaInicio" appendTo="body" 
+                        <p-datepicker 
+                        fluid
+                        size="small" 
+                        formControlName="fechaVentaInicio" 
+                        appendTo="body" 
                         [iconDisplay]="'input'" 
                         [showIcon]="true" 
                         [readonlyInput]="true" 
                         [showButtonBar]="true" 
                         [showTime]="true"
                         hourFormat="12"
-                        [showSeconds]="false"/>
+                        [showSeconds]="false"
+                        inputStyleClass="text-xs!"/>
                         @if (f.fechaVentaInicio.invalid && isSubmitted) {
                             <p-message severity="error" size="small" variant="simple">
                                 La fecha de inicio de venta es requerida.
@@ -90,20 +114,25 @@
                     
                 </div>
                 <div class="flex flex-col gap-1">
-                    <label class="kt-form-label font-normal text-mono">
+                    <label class="kt-form-label font-normal">
                     Fecha de Venta Fin <span class="text-red-300">*</span>
                     </label>
                     @if(ldData){
                         <p-skeleton width="100%" height="35px" class="mb-2" />
                     }@else{
-                        <p-datepicker size="small" appendTo="body" formControlName="fechaVentaFin" 
+                        <p-datepicker 
+                        fluid
+                        size="small" 
+                        appendTo="body" 
+                        formControlName="fechaVentaFin" 
                         [iconDisplay]="'input'" 
                         [showIcon]="true" 
                         [readonlyInput]="true" 
                         [showButtonBar]="true" 
                         [showTime]="true"
                         hourFormat="12"
-                        [showSeconds]="false"/>
+                        [showSeconds]="false"
+                        inputStyleClass="text-xs!"/>
                         @if (f.fechaVentaFin.invalid && isSubmitted) {
                             <p-message severity="error" size="small" variant="simple">
                                 @if (f.fechaVentaFin.hasError('required')) {
@@ -119,20 +148,25 @@
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div class="flex flex-col gap-1">
-                    <label class="kt-form-label font-normal text-mono">
+                    <label class="kt-form-label font-normal">
                     Fecha del Sorteo <span class="text-red-300">*</span>
                     </label>
                     @if(ldData){
                         <p-skeleton width="100%" height="35px" class="mb-2" />
                     }@else{
-                        <p-datepicker size="small" appendTo="body" formControlName="fechaSorteo" 
+                        <p-datepicker 
+                        fluid
+                        size="small" 
+                        appendTo="body" 
+                        formControlName="fechaSorteo" 
                         [iconDisplay]="'input'" 
                         [showIcon]="true" 
                         [readonlyInput]="true" 
                         [showButtonBar]="true" 
                         [showTime]="true"
                         hourFormat="12"
-                        [showSeconds]="false"/>
+                        [showSeconds]="false"
+                        inputStyleClass="text-xs!"/>
                         @if (f.fechaSorteo.invalid && isSubmitted) {
                             <p-message severity="error" size="small" variant="simple">
                                 @if (f.fechaSorteo.hasError('required')) {
@@ -146,20 +180,25 @@
                     }
                 </div>
                 <div class="flex flex-col gap-1">
-                    <label class="kt-form-label font-normal text-mono">
+                    <label class="kt-form-label font-normal">
                     Fecha de Extensión del Sorteo
                     </label>
                     @if(ldData){
                         <p-skeleton width="100%" height="35px" class="mb-2" />
                     }@else{
-                        <p-datepicker size="small" appendTo="body" formControlName="fechaExtSorteo" 
+                        <p-datepicker 
+                        fluid
+                        size="small" 
+                        appendTo="body" 
+                        formControlName="fechaExtSorteo" 
                         [iconDisplay]="'input'" 
                         [showIcon]="true" 
                         [readonlyInput]="true" 
                         [showButtonBar]="true" 
                         [showTime]="true"
                         hourFormat="12"
-                        [showSeconds]="false"/>
+                        [showSeconds]="false"
+                        inputStyleClass="text-xs!"/>
                     }
 
                     @if (f.fechaExtSorteo.invalid && isSubmitted) {
@@ -172,13 +211,20 @@
                 </div>
             </div>
             <div class="flex flex-col gap-1">
-                <label class="kt-form-label font-normal text-mono">
+                <label class="kt-form-label font-normal">
                 Precio Rifa <span class="text-red-300">*</span>
                 </label>
                 @if(ldData){
                     <p-skeleton width="100%" height="35px" class="mb-2" />
                 }@else{
-                    <p-inputnumber size="small" mode="currency" formControlName="precioRifa" currency="PEN" locale="es-PE" />
+                    <p-inputnumber
+                    fluid 
+                    size="small" 
+                    mode="currency" 
+                    formControlName="precioRifa" 
+                    currency="PEN" 
+                    locale="es-PE" 
+                    inputStyleClass="text-xs!"/>
                     @if (f.precioRifa.invalid && isSubmitted) {
                         <p-message severity="error" size="small" variant="simple">
                             @if (f.precioRifa.hasError('required')) {
@@ -193,14 +239,24 @@
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div class="flex flex-col gap-1">
-                    <label class="kt-form-label font-normal text-mono">
+                    <label class="kt-form-label font-normal">
                     Número Inicial <span class="text-red-300">*</span>
                     </label>
                     @if(ldData){
                         <p-skeleton width="100%" height="35px" class="mb-2" />
                     }@else{
                         <div class="flex">
-                            <p-inputnumber [showButtons]="true" formControlName="numeroInicial" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1" size="small" [useGrouping]="false" [min]="1">
+                            <p-inputnumber 
+                            fluid
+                            [showButtons]="true" 
+                            formControlName="numeroInicial" 
+                            buttonLayout="horizontal" 
+                            spinnerMode="horizontal" 
+                            [step]="1" 
+                            size="small" 
+                            [useGrouping]="false" 
+                            [min]="1"
+                            inputStyleClass="text-xs! text-center">
                                 <ng-template #incrementbuttonicon>
                                     <span class="pi pi-plus"></span>
                                 </ng-template>
@@ -222,14 +278,25 @@
                     }
                 </div>
                 <div class="flex flex-col gap-1">
-                    <label class="kt-form-label font-normal text-mono">
+                    <label class="kt-form-label font-normal">
                     Número Final <span class="text-red-300">*</span>
                     </label>
                     @if(ldData){
                         <p-skeleton width="100%" height="35px" class="mb-2" />
                     }@else{
                         <div class="flex">
-                            <p-inputnumber [showButtons]="true" formControlName="numeroFinal" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1" size="small" [useGrouping]="false" class="w-full" [min]="1">
+                            <p-inputnumber 
+                            fluid
+                            [showButtons]="true" 
+                            formControlName="numeroFinal" 
+                            buttonLayout="horizontal" 
+                            spinnerMode="horizontal" 
+                            [step]="1" 
+                            size="small" 
+                            [useGrouping]="false" 
+                            class="w-full" 
+                            [min]="1"
+                            inputStyleClass="text-xs! text-center">
                                 <ng-template #incrementbuttonicon>
                                     <span class="pi pi-plus"></span>
                                 </ng-template>
@@ -257,7 +324,7 @@
             </div>
             <div class="grid grid-cols-2 gap-1">
                 <div class="flex flex-col gap-1">
-                    <label class="kt-form-label font-normal text-mono">
+                    <label class="kt-form-label font-normal">
                     Mostrar tickets? <span class="text-red-300">*</span>
                     </label>
                     <div class="flex items-center">

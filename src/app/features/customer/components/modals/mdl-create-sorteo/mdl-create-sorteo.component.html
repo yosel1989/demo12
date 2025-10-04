@@ -1,13 +1,21 @@
-<form [formGroup]="frmNuevoSorteo" (ngSubmit)="evtOnSubmit()">
+<form [formGroup]="frmNuevoSorteo" (ngSubmit)="evtOnSubmit()" class="text-xs!">
     <div class="grid grid-cols-2 gap-4">
         <div class="flex flex-col gap-4">
             <div class="flex flex-col gap-1">
-                <label class="kt-form-label font-normal text-mono">
+                <label class="kt-form-label font-normal">
                 Nombre del Sorteo <span class="text-red-300">*</span>
                 </label>
-                <input pInputText type="text" pSize="small" formControlName="nombre" maxlength="500" autofocus="true" />
+                <input 
+                pInputText 
+                type="text" 
+                pSize="small" 
+                formControlName="nombre" 
+                maxlength="500" 
+                autofocus="true" 
+                styleClass="text-xs!"
+                />
                 @if (f.nombre.invalid && isSubmitted) {
-                    <p-message severity="error" size="small" variant="simple">
+                    <p-message severity="error" size="small" variant="simple" class="text-xs!">
                     @if (f.nombre.hasError('required')) {
                         El nombre es requerido.
                     }
@@ -18,7 +26,7 @@
                 }
             </div>
             <div class="flex flex-col gap-1">
-                <label class="kt-form-label font-normal text-mono">
+                <label class="kt-form-label font-normal">
                 Descripción
                 </label>
                 <p-editor [style]="{ height: '320px' }" formControlName="descripcion" />
@@ -34,7 +42,7 @@
         <div class="flex flex-col gap-4">
             <div class="grid grid-cols-2 gap-4">
                 <div class="flex flex-col gap-1">
-                    <label class="kt-form-label font-normal text-mono">
+                    <label class="kt-form-label font-normal">
                     Fecha de Venta Inicio <span class="text-red-300">*</span>
                     </label>
                     <p-datepicker size="small" formControlName="fechaVentaInicio" appendTo="body" 
@@ -52,7 +60,7 @@
                     }
                 </div>
                 <div class="flex flex-col gap-1">
-                    <label class="kt-form-label font-normal text-mono">
+                    <label class="kt-form-label font-normal">
                     Fecha de Venta Fin <span class="text-red-300">*</span>
                     </label>
                     <p-datepicker size="small" appendTo="body" formControlName="fechaVentaFin" 
@@ -77,7 +85,7 @@
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div class="flex flex-col gap-1">
-                    <label class="kt-form-label font-normal text-mono">
+                    <label class="kt-form-label font-normal">
                     Fecha del Sorteo <span class="text-red-300">*</span>
                     </label>
                     <p-datepicker size="small" appendTo="body" formControlName="fechaSorteo" 
@@ -95,7 +103,7 @@
                     }
                 </div>
                 <div class="flex flex-col gap-1">
-                    <label class="kt-form-label font-normal text-mono">
+                    <label class="kt-form-label font-normal">
                     Fecha de Extensión del Sorteo
                     </label>
                     <p-datepicker size="small" appendTo="body" formControlName="fechaExtSorteo" 
@@ -109,7 +117,7 @@
                 </div>
             </div>
             <div class="flex flex-col gap-1">
-                <label class="kt-form-label font-normal text-mono">
+                <label class="kt-form-label font-normal">
                 Precio Rifa <span class="text-red-300">*</span>
                 </label>
                 <p-inputnumber size="small" mode="currency" formControlName="precioRifa" currency="PEN" locale="es-PE" />
@@ -126,7 +134,7 @@
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div class="flex flex-col gap-1">
-                    <label class="kt-form-label font-normal text-mono">
+                    <label class="kt-form-label font-normal">
                     Número Inicial <span class="text-red-300">*</span>
                     </label>
                     <div class="flex">
@@ -151,7 +159,7 @@
                     }
                 </div>
                 <div class="flex flex-col gap-1">
-                    <label class="kt-form-label font-normal text-mono">
+                    <label class="kt-form-label font-normal">
                     Número Final <span class="text-red-300">*</span>
                     </label>
                     <div class="flex">
