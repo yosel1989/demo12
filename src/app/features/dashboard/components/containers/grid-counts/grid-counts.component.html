@@ -1,0 +1,198 @@
+<div class="overflow-x-auto lg:overflow-x-visible!">
+            
+            <div class="flex flex-nowrap lg:grid! lg:grid-cols-3! xl:grid-cols-6! gap-3">
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full relative overflow-hidden">
+                        @if(counts.isLoading()){<app-loader2 styleClass="text-amber-500! text-[30px]!"></app-loader2>}
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/input-money.png" width="35px" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Total depositos</div>
+                                    <div class="text-2xl font-bold text-green-700">{{ counts.value()?.wallet_top_ups | currency: 'PEN':'symbol':'1.2-2':'es-PE' }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full relative overflow-hidden">
+                        @if(counts.isLoading()){<app-loader2 styleClass="text-amber-500! text-[30px]!"></app-loader2>}
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/output-money.png" width="35px" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Total de retiros</div>
+                                    <div class="text-2xl font-bold text-red-400">{{ counts.value()?.wallet_with_drawals | currency: 'PEN':'symbol':'1.2-2':'es-PE' }}</div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full relative overflow-hidden">
+                        @if(counts.isLoading()){<app-loader2 styleClass="text-amber-500! text-[30px]!"></app-loader2>}
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/input-money.png" width="35px" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Jugadores que iniciaron sesión</div>
+                                    <div class="text-2xl font-bold text-green-700">{{ counts.value()?.customer_sessions_success }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full relative overflow-hidden">
+                        @if(counts.isLoading()){<app-loader2 styleClass="text-amber-500! text-[30px]!"></app-loader2>}
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/input-money.png" width="35px" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Conteo total de inicio de sesión</div>
+                                    <div class="text-2xl font-bold text-green-700">{{ counts.value()?.sessions_success }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full relative overflow-hidden">
+                        @if(counts.isLoading()){<app-loader2 styleClass="text-amber-500! text-[30px]!"></app-loader2>}
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/input-money.png" width="35px" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Jugadores registrados</div>
+                                    <div class="text-2xl font-bold text-amber-600">{{ counts.value()?.new_customers }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full relative overflow-hidden">
+                        @if(counts.isLoading()){<app-loader2 styleClass="text-amber-500! text-[30px]!"></app-loader2>}
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/money-customers.png" width="35px" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Saldo de jugadores</div>
+                                    <div class="text-2xl font-bold text-amber-600">{{ counts.value()?.customer_balance | currency: 'PEN':'symbol':'1.2-2':'es-PE'}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full relative overflow-hidden">
+                        @if(counts.isLoading()){<app-loader2 styleClass="text-amber-500! text-[30px]!"></app-loader2>}
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/input-money.png" width="35px" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Perfil</div>
+                                    <div class="text-2xl font-bold" [ngClass]="{ 'text-green-700' : (counts.value()?.profile ?? 0) >= 0, 'text-red-400' : (counts.value()?.profile ?? 0) >= 0  }">{{ counts.value()?.profile | currency: 'PEN':'symbol':'1.2-2':'es-PE' }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full relative overflow-hidden">
+                        @if(counts.isLoading()){<app-loader2 styleClass="text-amber-500! text-[30px]!"></app-loader2>}
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/person_input_money.png" width="35px" class="min-w-[35px]" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Jugadores que realizarón depositos</div>
+                                    <div class="text-2xl font-bold text-green-700">{{ counts.value()?.customer_wallet_top_ups }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full relative overflow-hidden">
+                        @if(counts.isLoading()){<app-loader2 styleClass="text-amber-500! text-[30px]!"></app-loader2>}
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/person_output_money.png" width="35px" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Jugadores que realizaron retiros</div>
+                                    <div class="text-2xl font-bold text-red-400">{{ counts.value()?.customer_wallet_with_drawals }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full relative overflow-hidden">
+                        @if(counts.isLoading()){<app-loader2 styleClass="text-amber-500! text-[30px]!"></app-loader2>}
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/input-money.png" width="35px" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Saldo del bono</div>
+                                    <div class="text-2xl font-bold text-green-700">{{ counts.value()?.bono_balance | currency: 'PEN':'symbol':'1.2-2':'es-PE' }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full relative overflow-hidden">
+                        @if(counts.isLoading()){<app-loader2 styleClass="text-amber-500! text-[30px]!"></app-loader2>}
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/input-money.png" width="35px" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Aumentar</div>
+                                    <div class="text-2xl font-bold text-green-700">{{ counts.value()?.increase | currency: 'PEN':'symbol':'1.2-2':'es-PE' }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-[60%] md:w-[40%]! lg:w-full! shadow-xl!">
+                    <div class="rounded-[15px] dark:bg-gray-800 text-surface-500 h-full relative overflow-hidden">
+                        @if(counts.isLoading()){<app-loader2 styleClass="text-amber-500! text-[30px]!"></app-loader2>}
+                        <div class="p-3">
+                            <div class="flex flex-row items-center gap-2">
+                                <div class="bg-gray-900 p-2 rounded-md">
+                                    <img src="assets/media/transactions/input-money.png" width="35px" class="min-w-[35px]" alt="">
+                                </div>
+                                <div>
+                                    <div class="truncate">Reducir</div>
+                                    <div class="text-2xl font-bold text-red-400">{{ counts.value()?.decrease | currency: 'PEN':'symbol':'1.2-2':'es-PE' }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
